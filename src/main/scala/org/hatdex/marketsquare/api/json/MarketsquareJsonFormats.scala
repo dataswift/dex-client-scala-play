@@ -7,13 +7,9 @@
 
 package org.hatdex.marketsquare.api.json
 
-import org.hatdex.hat.api.json.{ HatJsonFormats, LocalDateTimeMarshalling, UuidMarshalling }
+import org.hatdex.hat.api.json.HatJsonFormats
 import org.hatdex.marketsquare.api.models._
-import org.joda.time.LocalDateTime
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
-
-import scala.util.{ Failure, Success, Try }
 
 trait MarketsquareJsonFormats extends HatJsonFormats {
   implicit val offerHatFormat = Json.format[OfferHat]
