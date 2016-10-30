@@ -16,6 +16,10 @@ trait MarketsquareJsonFormats extends HatJsonFormats {
   implicit val offerclaimFormat = Json.format[OfferClaim]
   implicit val offerHatCredentialsFormat = Json.format[OfferHatCredentials]
   implicit val offerClaimsInfoFormat = Json.format[OfferClaimsInfo]
+
+  implicit val noticeReads = Json.reads[Notice]
+  implicit val noticeWrites = Json.writes[Notice]
+  implicit val noticeFormat = Format(noticeReads, noticeWrites)
 }
 
 object MarketsquareJsonFormats extends MarketsquareJsonFormats
