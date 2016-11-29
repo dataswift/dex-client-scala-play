@@ -14,9 +14,9 @@ import play.api.libs.ws.WSClient
 class MarketsquareClient(
     val ws: WSClient,
     val marketsquareAddress: String,
-    override val schema: String) extends MarketsquareOffers with MarketsquareNotices {
+    override val schema: String) extends MarketsquareOffers with MarketsquareNotices with MarketsquareDataPlugs {
 
-  @Inject def this(ws: WSClient, hatAddress: String) = this(ws, hatAddress, "https://")
+  @Inject def this(ws: WSClient, marketsquareAddress: String) = this(ws, marketsquareAddress, "https://")
 
   val logger = play.api.Logger(this.getClass)
 }
