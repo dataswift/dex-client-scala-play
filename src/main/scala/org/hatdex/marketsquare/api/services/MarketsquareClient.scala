@@ -12,9 +12,12 @@ import javax.inject.Inject
 import play.api.libs.ws.WSClient
 
 class MarketsquareClient(
-    val ws: WSClient,
-    val marketsquareAddress: String,
-    override val schema: String) extends MarketsquareOffers with MarketsquareNotices with MarketsquareDataPlugs {
+  val ws: WSClient,
+  val marketsquareAddress: String,
+  override val schema: String) extends MarketsquareOffers
+    with MarketsquareNotices
+    with MarketsquareDataPlugs
+    with MarketsquareStats {
 
   @Inject def this(ws: WSClient, marketsquareAddress: String) = this(ws, marketsquareAddress, "https://")
 
