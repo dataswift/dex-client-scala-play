@@ -29,7 +29,7 @@ trait MarketsquareDataPlugs {
 
     val request: WSRequest = ws.url(s"$schema$marketsquareAddress/api/dataplugs/$dataplugId/connect")
       .withVirtualHost(marketsquareAddress)
-      .withQueryString(("hat", "mike.hubofallthings.net"))
+      .withQueryString(("hat", hatAddress))
       .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
