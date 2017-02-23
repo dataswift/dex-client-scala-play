@@ -16,8 +16,7 @@ case class NoticeTarget(
   withAnyRole: Option[Seq[String]],
   withAllRoles: Option[Seq[String]],
   withEmail: Option[Seq[String]],
-  withHatAddress: Option[Seq[String]]
-)
+  withHatAddress: Option[Seq[String]])
 
 object NoticeTarget {
   implicit val noticeTargetJsonReads = Json.reads[NoticeTarget]
