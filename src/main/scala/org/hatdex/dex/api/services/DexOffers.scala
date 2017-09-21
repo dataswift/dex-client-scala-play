@@ -7,31 +7,31 @@
  *
  */
 
-package org.hatdex.marketsquare.api.services
+package org.hatdex.dex.api.services
 
 import java.util.UUID
 
-import org.hatdex.marketsquare.api.json.MarketsquareJsonFormats
-import org.hatdex.marketsquare.api.models.OfferClaimsInfo
+import org.hatdex.dex.api.json.DexJsonFormats
+import org.hatdex.dex.api.models.OfferClaimsInfo
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait MarketsquareOffers {
+trait DexOffers {
   val logger: Logger
   val ws: WSClient
   val schema: String
-  val marketsquareAddress: String
+  val dexAddress: String
 
-  import MarketsquareJsonFormats.offerClaimsInfoFormat
+  import DexJsonFormats.offerClaimsInfoFormat
 
   def offerClaims(access_token: String, offerId: UUID)(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
-    logger.debug(s"Get Data Debit $offerId values from $marketsquareAddress")
+    logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
-    val request: WSRequest = ws.url(s"$schema$marketsquareAddress/api/offer/$offerId/claims")
-      .withVirtualHost(marketsquareAddress)
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/offer/$offerId/claims")
+      .withVirtualHost(dexAddress)
       .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -46,8 +46,8 @@ trait MarketsquareOffers {
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>
-          logger.error(s"Fetching Offer $offerId claims from $marketsquareAddress failed, $response, ${response.body}")
-          throw new RuntimeException(s"Fetching Offer $offerId claims from $marketsquareAddress failed, $response, ${response.body}")
+          logger.error(s"Fetching Offer $offerId claims from $dexAddress failed, $response, ${response.body}")
+          throw new RuntimeException(s"Fetching Offer $offerId claims from $dexAddress failed, $response, ${response.body}")
       }
     }
   }

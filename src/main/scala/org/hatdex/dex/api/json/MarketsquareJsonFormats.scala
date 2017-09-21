@@ -7,13 +7,13 @@
  *
  */
 
-package org.hatdex.marketsquare.api.json
+package org.hatdex.dex.api.json
 
 import org.hatdex.hat.api.json.HatJsonFormats
-import org.hatdex.marketsquare.api.models._
+import org.hatdex.dex.api.models._
 import play.api.libs.json._
 
-trait MarketsquareJsonFormats extends HatJsonFormats {
+trait DexJsonFormats extends HatJsonFormats {
   implicit val offerHatFormat = Json.format[OfferHat]
   implicit val offerclaimFormat = Json.format[OfferClaim]
   implicit val offerHatCredentialsFormat = Json.format[OfferHatCredentials]
@@ -24,4 +24,4 @@ trait MarketsquareJsonFormats extends HatJsonFormats {
   implicit val noticeFormat = Format(noticeReads, noticeWrites)
 }
 
-object MarketsquareJsonFormats extends MarketsquareJsonFormats
+object DexJsonFormats extends DexJsonFormats

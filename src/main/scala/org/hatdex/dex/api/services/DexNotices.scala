@@ -7,12 +7,12 @@
  *
  */
 
-package org.hatdex.marketsquare.api.services
+package org.hatdex.dex.api.services
 
 import java.util.UUID
 
-import org.hatdex.marketsquare.api.json.MarketsquareJsonFormats
-import org.hatdex.marketsquare.api.models.{ Notice, OfferClaimsInfo }
+import org.hatdex.dex.api.json.DexJsonFormats
+import org.hatdex.dex.api.models.{ Notice, OfferClaimsInfo }
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -20,19 +20,19 @@ import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait MarketsquareNotices {
+trait DexNotices {
   val logger: Logger
   val ws: WSClient
   val schema: String
-  val marketsquareAddress: String
+  val dexAddress: String
 
-  import MarketsquareJsonFormats.noticeFormat
+  import DexJsonFormats.noticeFormat
 
   def postNotice(access_token: String, notice: Notice)(implicit ec: ExecutionContext): Future[Notice] = {
     logger.debug(s"Post notice $notice to MarketSquare")
 
-    val request: WSRequest = ws.url(s"$schema$marketsquareAddress/api/notices")
-      .withVirtualHost(marketsquareAddress)
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/notices")
+      .withVirtualHost(dexAddress)
       .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(notice))

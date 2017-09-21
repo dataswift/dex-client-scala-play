@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.marketsquare.api.services
+package org.hatdex.dex.api.services
 
 import org.hatdex.hat.api.models.DataStats
 import play.api.Logger
@@ -17,18 +17,18 @@ import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait MarketsquareStats {
+trait DexStats {
 
   import org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
 
   val logger: Logger
   val ws: WSClient
   val schema: String
-  val marketsquareAddress: String
+  val dexAddress: String
 
   def postStats(access_token: String, stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
-    val request: WSRequest = ws.url(s"$schema$marketsquareAddress/stats/report")
-      .withVirtualHost(marketsquareAddress)
+    val request: WSRequest = ws.url(s"$schema$dexAddress/stats/report")
+      .withVirtualHost(dexAddress)
       .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(stats))

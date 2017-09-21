@@ -7,21 +7,21 @@
  *
  */
 
-package org.hatdex.marketsquare.api.services
+package org.hatdex.dex.api.services
 
 import javax.inject.Inject
 
 import play.api.libs.ws.WSClient
 
-class MarketsquareClient(
+class DexClient(
   val ws: WSClient,
-  val marketsquareAddress: String,
-  override val schema: String) extends MarketsquareOffers
-    with MarketsquareNotices
-    with MarketsquareDataPlugs
-    with MarketsquareStats {
+  val dexAddress: String,
+  override val schema: String) extends DexOffers
+    with DexNotices
+    with DexDataPlugs
+    with DexStats {
 
-  @Inject def this(ws: WSClient, marketsquareAddress: String) = this(ws, marketsquareAddress, "https://")
+  @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
 
   val logger = play.api.Logger(this.getClass)
 }

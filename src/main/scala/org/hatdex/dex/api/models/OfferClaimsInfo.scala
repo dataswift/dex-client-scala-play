@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.marketsquare.api.models
+package org.hatdex.dex.api.models
 
 import java.util.UUID
 
