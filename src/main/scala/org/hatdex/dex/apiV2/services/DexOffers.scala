@@ -10,14 +10,14 @@
 package org.hatdex.dex.apiV2.services
 
 import org.hatdex.dex.apiV2.json.DexJsonFormats
-import org.hatdex.dex.apiV2.models.{ Offer, OfferClaimSummary, OfferClaimsInfo }
+import org.hatdex.dex.apiV2.models.{Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration}
 import org.hatdex.dex.apiV2.services.Errors._
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DexOffers {
   val logger: Logger
@@ -54,7 +54,7 @@ trait DexOffers {
     }
   }
 
-  def registerOffer(access_token: String, offer: Offer)(implicit ec: ExecutionContext): Future[Offer] = {
+  def registerOffer(access_token: String, offer: OfferRegistration)(implicit ec: ExecutionContext): Future[Offer] = {
     logger.debug(s"Register new offer with $dexAddress")
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer")
