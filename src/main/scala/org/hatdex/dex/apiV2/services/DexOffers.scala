@@ -10,14 +10,14 @@
 package org.hatdex.dex.apiV2.services
 
 import org.hatdex.dex.apiV2.json.DexJsonFormats
-import org.hatdex.dex.apiV2.models.{Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration}
+import org.hatdex.dex.apiV2.models.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
 import org.hatdex.dex.apiV2.services.Errors._
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexOffers {
   val logger: Logger

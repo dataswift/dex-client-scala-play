@@ -11,7 +11,7 @@ package org.hatdex.dex.apiV2.services
 
 import javax.inject.Inject
 
-import org.hatdex.dex.api.services.{ DexDataPlugs, DexNotices, DexStats }
+import org.hatdex.dex.api.services.{ DexDataPlugs, DexNotices }
 import play.api.libs.ws.WSClient
 
 class DexClient(

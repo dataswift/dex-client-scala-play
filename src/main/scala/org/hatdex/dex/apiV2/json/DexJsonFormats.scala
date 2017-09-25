@@ -14,6 +14,7 @@ import org.hatdex.dex.apiV2.models._
 import org.hatdex.hat.api.models.RichDataJsonFormats
 import org.joda.time.Duration
 import play.api.data.validation.ValidationError
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
@@ -38,6 +39,17 @@ trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
 
   implicit val offerRegistrationFormat: Format[OfferRegistration] = Json.format[OfferRegistration]
   implicit val offerFormat: Format[Offer] = Json.format[Offer]
+
+  implicit val fieldInfoFormat: Format[FieldInfo] = Json.format[FieldInfo]
+
+  implicit val fieldStructureFormat: Format[FieldStructure] = (
+    (__ \ "name").format[String] and
+    (__ \ "fields").lazyFormatNullable(implicitly[Format[Seq[FieldStructure]]]) and
+    (__ \ "description").formatNullable[String] and
+    (__ \ "count").formatNullable[Long])(FieldStructure.apply, unlift(FieldStructure.unapply))
+
+  implicit val endpointStructureFormat: Format[EndpointStructure] = Json.format[EndpointStructure]
+  implicit val namespaceStructureFormat: Format[NamespaceStructure] = Json.format[NamespaceStructure]
 }
 
 object DexJsonFormats extends DexJsonFormats
