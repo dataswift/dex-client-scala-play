@@ -30,7 +30,7 @@ trait DexOffers {
   def listOffers()(implicit ec: ExecutionContext): Future[Seq[Offer]] = {
     logger.debug(s"Get DEX data offers from $dexAddress")
 
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer")
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offers")
       .withVirtualHost(dexAddress)
       .withHeaders("Accept" -> "application/json")
 
