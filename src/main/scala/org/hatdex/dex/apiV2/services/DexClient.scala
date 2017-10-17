@@ -20,7 +20,8 @@ class DexClient(
   override val schema: String) extends DexOffers
     with DexNotices
     with DexDataPlugs
-    with DexStats {
+    with DexStats
+    with DexUsers {
 
   @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
 
