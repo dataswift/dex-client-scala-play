@@ -33,7 +33,7 @@ trait DexStats {
   def postStats(access_token: String, stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/stats/report")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(stats))
     futureResponse.map { response =>
@@ -50,7 +50,7 @@ trait DexStats {
   def availableData()(implicit ec: ExecutionContext): Future[Seq[NamespaceStructure]] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/stats/available-data")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json")
+      .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>

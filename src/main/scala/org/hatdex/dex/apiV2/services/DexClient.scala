@@ -15,13 +15,13 @@ import org.hatdex.dex.api.services.{ DexDataPlugs, DexNotices }
 import play.api.libs.ws.WSClient
 
 class DexClient(
-  val ws: WSClient,
-  val dexAddress: String,
-  override val schema: String) extends DexOffers
-    with DexNotices
-    with DexDataPlugs
-    with DexStats
-    with DexUsers {
+    val ws: WSClient,
+    val dexAddress: String,
+    override val schema: String) extends DexOffers
+  with DexNotices
+  with DexDataPlugs
+  with DexStats
+  with DexUsers {
 
   @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
 

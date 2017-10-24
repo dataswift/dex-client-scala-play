@@ -45,15 +45,15 @@ object Offer {
 }
 
 case class OfferRegistration(
-  offerId: String,
-  created: Option[DateTime],
-  title: String,
-  description: String,
-  starts: DateTime,
-  expires: DateTime,
-  collectionDuration: Option[Duration],
-  dataConditions: Option[EndpointDataBundle],
-  requiredData: EndpointDataBundle,
-  requiredMinUser: Long,
-  requiredMaxUser: Long,
-  status: String)
+    offerId: String,
+    created: Option[DateTime],
+    title: String,
+    description: String,
+    starts: DateTime,
+    expires: DateTime,
+    collectionDuration: Option[Duration],
+    dataConditions: Option[EndpointDataBundle],
+    requiredData: EndpointDataBundle,
+    requiredMinUser: Long,
+    requiredMaxUser: Long,
+    status: String)

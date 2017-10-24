@@ -13,10 +13,10 @@ import org.joda.time.DateTime
 import play.api.libs.json.Json
 
 case class NoticeTarget(
-  withAnyRole: Option[Seq[String]],
-  withAllRoles: Option[Seq[String]],
-  withEmail: Option[Seq[String]],
-  withHatAddress: Option[Seq[String]])
+    withAnyRole: Option[Seq[String]],
+    withAllRoles: Option[Seq[String]],
+    withEmail: Option[Seq[String]],
+    withHatAddress: Option[Seq[String]])
 
 object NoticeTarget {
   implicit val noticeTargetJsonReads = Json.reads[NoticeTarget]

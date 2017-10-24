@@ -14,6 +14,9 @@ import org.hatdex.dex.api.models._
 import play.api.libs.json._
 
 trait DexJsonFormats extends HatJsonFormats {
+  import play.api.libs.json.JodaWrites._
+  import play.api.libs.json.JodaReads._
+
   implicit val offerHatFormat = Json.format[OfferHat]
   implicit val offerclaimFormat = Json.format[OfferClaim]
   implicit val offerHatCredentialsFormat = Json.format[OfferHatCredentials]

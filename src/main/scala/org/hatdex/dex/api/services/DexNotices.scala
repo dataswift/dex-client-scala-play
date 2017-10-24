@@ -9,10 +9,8 @@
 
 package org.hatdex.dex.api.services
 
-import java.util.UUID
-
 import org.hatdex.dex.api.json.DexJsonFormats
-import org.hatdex.dex.api.models.{ Notice, OfferClaimsInfo }
+import org.hatdex.dex.api.models.Notice
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -33,7 +31,7 @@ trait DexNotices {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/notices")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(notice))
     futureResponse.map { response =>

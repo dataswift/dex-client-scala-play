@@ -9,15 +9,16 @@
 
 package org.hatdex.dex.apiV2.json
 
-import org.hatdex.hat.api.json.{ DataDebitFormats, HatJsonFormats }
+import org.hatdex.hat.api.json.{ DataDebitFormats }
 import org.hatdex.dex.apiV2.models._
 import org.hatdex.hat.api.models.RichDataJsonFormats
 import org.joda.time.Duration
-import play.api.data.validation.ValidationError
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
+  import play.api.libs.json.JodaWrites._
+  import play.api.libs.json.JodaReads._
 
   /*
   * Duration Json formats
@@ -28,7 +29,7 @@ trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
   implicit val durationReads: Reads[Duration] = new Reads[Duration] {
     def reads(json: JsValue): JsResult[Duration] = json match {
       case JsNumber(value) => JsSuccess(new Duration(value.toLong))
-      case _               => JsError(Seq(JsPath() -> Seq(ValidationError("validate.error.expected.period"))))
+      case _               => JsError(Seq(JsPath() -> Seq(JsonValidationError("validate.error.expected.period"))))
     }
   }
 

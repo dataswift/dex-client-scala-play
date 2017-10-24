@@ -32,7 +32,7 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offers")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json")
+      .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>
@@ -59,7 +59,7 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(offer))
     futureResponse.map { response =>
@@ -93,7 +93,7 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>
@@ -128,8 +128,8 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer/$offerId/registerClaim")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
-      .withQueryString(("hat", hat))
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withQueryStringParameters(("hat", hat))
 
     val futureResponse: Future[WSResponse] = request.put("")
     futureResponse.map { response =>
@@ -174,8 +174,8 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/v2/offer/$offerId")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
-      .withQueryString(("status", status))
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withQueryStringParameters(("status", status))
 
     val futureResponse: Future[WSResponse] = request.put("")
     futureResponse.map { response =>

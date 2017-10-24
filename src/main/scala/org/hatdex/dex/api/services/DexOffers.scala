@@ -32,7 +32,7 @@ trait DexOffers {
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
-      .withHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>

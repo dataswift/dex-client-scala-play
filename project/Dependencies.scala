@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala = Seq("2.11.8")
+    val crossScala = Seq("2.12.4", "2.11.8")
     val scalaVersion = crossScala.head
   }
 
@@ -31,17 +31,19 @@ object Dependencies {
       val cache = "com.typesafe.play" %% "play-cache" % version
       val test = "com.typesafe.play" %% "play-test" % version
       val specs2 = "com.typesafe.play" %% "play-specs2" % version
+      val json = "com.typesafe.play" %% "play-json" % version
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % version
     }
 
     object Specs2 {
-      private val version = "3.6.6"
+      private val version = "3.8.9"
       val core = "org.specs2" %% "specs2-core" % version
       val matcherExtra = "org.specs2" %% "specs2-matcher-extra" % version
       val mock = "org.specs2" %% "specs2-mock" % version
     }
 
     object HATDeX {
-      private val version = "2.4.1-SNAPSHOT"
+      private val version = "2.4.2-SNAPSHOT"
       val hatClient = "org.hatdex" %% "hat-client-scala-play" % version
     }
   }

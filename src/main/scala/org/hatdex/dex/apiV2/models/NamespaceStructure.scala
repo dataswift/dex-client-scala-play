@@ -8,22 +8,22 @@
 package org.hatdex.dex.apiV2.models
 
 case class FieldInfo(
-  name: String,
-  count: Long,
-  description: Option[String])
+    name: String,
+    count: Long,
+    description: Option[String])
 
 case class FieldStructure(
-  name: String,
-  fields: Option[Seq[FieldStructure]],
-  description: Option[String],
-  count: Option[Long])
+    name: String,
+    fields: Option[Seq[FieldStructure]],
+    description: Option[String],
+    count: Option[Long])
 
 case class EndpointStructure(
-  endpoint: String,
-  fields: Seq[FieldStructure],
-  description: Option[String])
+    endpoint: String,
+    fields: Seq[FieldStructure],
+    description: Option[String])
 
 case class NamespaceStructure(
-  namespace: String,
-  endpoints: Seq[EndpointStructure],
-  description: Option[String])
+    namespace: String,
+    endpoints: Seq[EndpointStructure],
+    description: Option[String])

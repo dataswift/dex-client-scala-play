@@ -12,25 +12,25 @@ package org.hatdex.dex.apiV2.models
 import org.joda.time.DateTime
 
 case class OfferHat(
-  address: String,
-  publicKey: String)
+    address: String,
+    publicKey: String)
 
 case class OfferClaimSummary(
-  offerId: String,
-  user: OfferHat,
-  relationship: String,
-  confirmed: Boolean,
-  dataDebitId: Option[String],
-  dateCreated: DateTime,
-  claimerNumber: Option[Int])
+    offerId: String,
+    user: OfferHat,
+    relationship: String,
+    confirmed: Boolean,
+    dataDebitId: Option[String],
+    dateCreated: DateTime,
+    claimerNumber: Option[Int])
 
 case class OfferHatCredentialsSummary(
-  offerId: String,
-  login: String,
-  passwordPlain: String,
-  passwordHash: String,
-  dateCreated: DateTime)
+    offerId: String,
+    login: String,
+    passwordPlain: String,
+    passwordHash: String,
+    dateCreated: DateTime)
 
 case class OfferClaimsInfo(
-  credentials: OfferHatCredentialsSummary,
-  claims: Seq[OfferClaimSummary])
+    credentials: OfferHatCredentialsSummary,
+    claims: Seq[OfferClaimSummary])

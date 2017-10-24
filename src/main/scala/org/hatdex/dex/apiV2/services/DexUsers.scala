@@ -26,7 +26,7 @@ trait DexUsers {
 
   def registerHat(hatName: String, domain: String)(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/users/registerHat")
-      .withHeaders("Accept" -> "application/json")
+      .withHttpHeaders("Accept" -> "application/json")
 
     val hat = Json.obj("hatAddress" -> Json.toJson(s"$hatName.$domain"))
 
