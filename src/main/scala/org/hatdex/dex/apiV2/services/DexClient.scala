@@ -21,7 +21,8 @@ class DexClient(
   with DexNotices
   with DexDataPlugs
   with DexStats
-  with DexUsers {
+  with DexUsers
+  with DexApplications {
 
   @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
 
