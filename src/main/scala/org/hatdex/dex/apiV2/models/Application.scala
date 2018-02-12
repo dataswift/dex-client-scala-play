@@ -76,7 +76,7 @@ object ApplicationSetup {
   }
 
   case class External(url: Option[String], iosUrl: Option[String], androidUrl: Option[String]) extends Setup {
-    final val kind: String = "Setup"
+    final val kind: String = "External"
   }
 
   case class Internal(
@@ -118,6 +118,7 @@ object ApplicationStatus {
 }
 
 case class Application(
+    id: String,
     kind: ApplicationKind.Kind,
     info: ApplicationInfo,
     permissions: ApplicationPermissions,
