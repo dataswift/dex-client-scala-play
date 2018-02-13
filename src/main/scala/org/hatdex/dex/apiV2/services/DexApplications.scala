@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.models.Application
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
+import org.hatdex.dex.apiV2.models.{Application, ApplicationHistory}
+import org.hatdex.dex.apiV2.services.Errors.{ApiException, DataFormatException}
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Format
 import play.api.libs.ws._
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DexApplications {
 
@@ -26,10 +26,12 @@ trait DexApplications {
   protected val dexAddress: String
 
   protected implicit val applicationFormat: Format[Application] = org.hatdex.dex.apiV2.json.ApplicationJsonProtocol.applicationFormat
+  protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.dex.apiV2.json.ApplicationJsonProtocol.applicationHistoryFormat
 
-  def applications()(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+  def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/applications")
       .withVirtualHost(dexAddress)
+      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -45,7 +47,33 @@ trait DexApplications {
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>
-          val message = s"Available data collection failed: $response, ${response.body}"
+          val message = s"Retrieving application info failed: $response, ${response.body}"
+          logger.error(message)
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def applicationHistory(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/applications-history")
+      .withVirtualHost(dexAddress)
+      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
+      .withHttpHeaders("Accept" -> "application/json")
+
+    val futureResponse: Future[WSResponse] = request.get()
+    futureResponse.map { response =>
+      response.status match {
+        case OK =>
+          val jsResponse = response.json.validate[Seq[ApplicationHistory]] recover {
+            case e =>
+              val message = s"Error parsing application structures: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case _ =>
+          val message = s"Retrieving application history failed: $response, ${response.body}"
           logger.error(message)
           throw new ApiException(message)
       }

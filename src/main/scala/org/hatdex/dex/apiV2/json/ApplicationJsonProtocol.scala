@@ -99,6 +99,8 @@ trait ApplicationJsonProtocol extends DataFeedItemJsonProtocol {
   }
 
   implicit val applicationFormat: Format[Application] = Json.format[Application]
+
+  implicit val applicationHistoryFormat: Format[ApplicationHistory] = Json.format[ApplicationHistory]
 }
 
 object ApplicationJsonProtocol extends ApplicationJsonProtocol {

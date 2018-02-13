@@ -136,3 +136,7 @@ case class Application(
 
   lazy val dataDebitId: Option[String] = permissions.dataRequired.map(_ => s"app-$id")
 }
+
+case class ApplicationHistory(
+  current: Application,
+  history: Option[Seq[Application]])
