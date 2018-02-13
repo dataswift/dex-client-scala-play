@@ -22,13 +22,17 @@ case class ApplicationGraphics(
 /*
  * Application version should follow Semantic Versioning
  */
-case class Version(major: Int, minor: Int, patch: Int) {
+case class Version(major: Int, minor: Int, patch: Int) extends Ordered[Version] {
   override def toString: String = s"$major.$minor.$patch"
 
   def greaterThan(other: Version): Boolean =
     (other.major < major) ||
       (other.major == major && other.minor < minor) ||
       (other.major == major && other.minor == minor && other.patch < patch)
+
+  import scala.math.Ordered.orderingToOrdered
+
+  def compare(that: Version): Int = ((this.major, this.minor, this.patch)) compare ((that.major, that.minor, that.patch))
 }
 
 object Version {
@@ -129,4 +133,6 @@ case class Application(
     // if "compatibility" is set to a greater version than version of application updating from, update is required
     status.compatibility.greaterThan(fromApplication.info.version)
   }
+
+  lazy val dataDebitId: Option[String] = permissions.dataRequired.map(_ => s"app-$id")
 }
