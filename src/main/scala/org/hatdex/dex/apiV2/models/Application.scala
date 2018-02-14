@@ -138,5 +138,5 @@ case class Application(
 }
 
 case class ApplicationHistory(
-  current: Application,
-  history: Option[Seq[Application]])
+    current: Application,
+    history: Option[Seq[Application]])
