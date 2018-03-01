@@ -9,8 +9,8 @@
 
 package org.hatdex.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.models.{ Application, ApplicationHistory }
 import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
+import org.hatdex.hat.api.models.applications.{ Application, ApplicationHistory }
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Format
@@ -25,8 +25,8 @@ trait DexApplications {
   protected val schema: String
   protected val dexAddress: String
 
-  protected implicit val applicationFormat: Format[Application] = org.hatdex.dex.apiV2.json.ApplicationJsonProtocol.applicationFormat
-  protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.dex.apiV2.json.ApplicationJsonProtocol.applicationHistoryFormat
+  protected implicit val applicationFormat: Format[Application] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
+  protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
 
   def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/applications")
