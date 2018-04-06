@@ -9,29 +9,12 @@
 
 package org.hatdex.dex.apiV2.json
 
-import org.hatdex.hat.api.json.{ DataDebitFormats }
+import org.hatdex.hat.api.json.{ DataDebitFormats, RichDataJsonFormats }
 import org.hatdex.dex.apiV2.models._
-import org.hatdex.hat.api.models.RichDataJsonFormats
-import org.joda.time.Duration
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
-  import play.api.libs.json.JodaWrites._
-  import play.api.libs.json.JodaReads._
-
-  /*
-  * Duration Json formats
-   */
-  implicit val durationWrites: Writes[Duration] = new Writes[Duration] {
-    def writes(o: Duration): JsValue = JsNumber(o.getMillis)
-  }
-  implicit val durationReads: Reads[Duration] = new Reads[Duration] {
-    def reads(json: JsValue): JsResult[Duration] = json match {
-      case JsNumber(value) => JsSuccess(new Duration(value.toLong))
-      case _               => JsError(Seq(JsPath() -> Seq(JsonValidationError("validate.error.expected.period"))))
-    }
-  }
 
   implicit val offervHatFormat = Json.format[OfferHat]
   implicit val offervClaimFormat = Json.format[OfferClaimSummary]
