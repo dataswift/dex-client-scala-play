@@ -15,7 +15,8 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DexUsers {
 
@@ -35,18 +36,35 @@ trait DexUsers {
       logger.debug(s"Register Hat Response: $response")
       response.status match {
         case OK => Done
-        case _ =>
-          val message = (response.json \ "message")
-            .validate[String]
-            .getOrElse("Unknown error occurred")
-
-          val error = (response.json \ "cause")
-            .validate[String]
-            .getOrElse("")
-          throw new RuntimeException(s"$message - $error")
+        case _  => handleErrorResponses(response)
       }
     }
-
   }
 
+  def registerTosConsent(accessToken: String, applicationId: String)(implicit ec: ExecutionContext): Future[Done] = {
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/users/register-consent/$applicationId")
+      .withVirtualHost(dexAddress)
+      .withRequestTimeout(2500.millis)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
+
+    val futureResponse: Future[WSResponse] = request.get
+    futureResponse.map { response =>
+      logger.debug(s"Registering user's consent to TOS: $response")
+      response.status match {
+        case OK => Done
+        case _  => handleErrorResponses(response)
+      }
+    }
+  }
+
+  private def handleErrorResponses(response: WSResponse): Nothing = {
+    val message = (response.json \ "message")
+      .validate[String]
+      .getOrElse("Unknown error occurred")
+
+    val error = (response.json \ "cause")
+      .validate[String]
+      .getOrElse("")
+    throw new RuntimeException(s"$message - $error")
+  }
 }

@@ -18,7 +18,7 @@ object BasicSettings extends AutoPlugin {
 
   override def projectSettings = Seq(
     organization := "org.hatdex",
-    version := "2.6.3-SNAPSHOT",
+    version := "2.6.4-SNAPSHOT",
     resolvers ++= Dependencies.resolvers,
     scalaVersion := Dependencies.Versions.scalaVersion,
     crossScalaVersions := Dependencies.Versions.crossScala,
@@ -38,6 +38,12 @@ object BasicSettings extends AutoPlugin {
         name  = "Andrius Aucinas",
         email = "andrius@smart-e.org",
         url   = url("http://smart-e.org")
+      ),
+      Developer(
+        id    = "AugustinasM",
+        name  = "Augustinas Markevicius",
+        email = "gus@codeandpicture.com",
+        url = url("http://codeandpicture.com")
       )
     ),
     scalacOptions ++= Seq(
