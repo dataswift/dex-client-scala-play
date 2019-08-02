@@ -20,10 +20,11 @@ import play.api.libs.ws._
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexOffers {
-  val logger: Logger
-  val ws: WSClient
-  val schema: String
-  val dexAddress: String
+  protected val logger: Logger
+  protected val ws: WSClient
+  protected val schema: String
+  protected val dexAddress: String
+  protected val apiVersion: String
 
   import DexJsonFormats._
 

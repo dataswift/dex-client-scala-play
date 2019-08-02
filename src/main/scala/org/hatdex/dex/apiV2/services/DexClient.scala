@@ -17,14 +17,15 @@ import play.api.libs.ws.WSClient
 class DexClient(
     val ws: WSClient,
     val dexAddress: String,
-    override val schema: String) extends DexOffers
+    override val schema: String,
+    override val apiVersion: String) extends DexOffers
   with DexNotices
   with DexDataPlugs
   with DexStats
   with DexUsers
   with DexApplications {
 
-  @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
+  @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://", "v1.1")
 
   val logger = play.api.Logger(this.getClass)
 }

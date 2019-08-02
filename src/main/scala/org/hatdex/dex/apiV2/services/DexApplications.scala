@@ -24,12 +24,13 @@ trait DexApplications {
   protected val ws: WSClient
   protected val schema: String
   protected val dexAddress: String
+  protected val apiVersion: String
 
   protected implicit val applicationFormat: Format[Application] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
   protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
 
   def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/applications")
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
       .withHttpHeaders("Accept" -> "application/json")
@@ -55,7 +56,7 @@ trait DexApplications {
   }
 
   def applicationHistory(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/applications-history")
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications-history")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
       .withHttpHeaders("Accept" -> "application/json")

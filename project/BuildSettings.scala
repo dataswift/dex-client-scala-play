@@ -18,12 +18,12 @@ object BasicSettings extends AutoPlugin {
 
   override def projectSettings = Seq(
     organization := "org.hatdex",
-    version := "2.6.4-SNAPSHOT",
+    version := "2.6.5-SNAPSHOT",
     resolvers ++= Dependencies.resolvers,
     scalaVersion := Dependencies.Versions.scalaVersion,
     crossScalaVersions := Dependencies.Versions.crossScala,
-    name := "DEX Client Scala Play",
-    description := "HAT Data Exchange HTTP API wrapper in Scala",
+    name := "DEX Client Scala",
+    description := "Dataswift Exchange HTTP API wrapper for Scala",
     licenses += ("Mozilla Public License 2.0", url("https://www.mozilla.org/en-US/MPL/2.0")),
     scmInfo := Some(
       ScmInfo(
@@ -31,7 +31,7 @@ object BasicSettings extends AutoPlugin {
         "scm:git@github.com:Hub-of-all-Things/dex-client-scala-play.git"
       )
     ),
-    homepage := Some(url("https://hubofallthings.com")),
+    homepage := Some(url("https://dataswift.io")),
     developers := List(
       Developer(
         id    = "AndriusA",

@@ -16,7 +16,7 @@ import play.api.libs.json.Json
 import play.api.libs.ws._
 
 import scala.concurrent.duration._
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexUsers {
 
@@ -24,6 +24,7 @@ trait DexUsers {
   protected val ws: WSClient
   protected val schema: String
   protected val dexAddress: String
+  protected val apiVersion: String
 
   def registerHat(hatName: String, domain: String)(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/users/registerHat")

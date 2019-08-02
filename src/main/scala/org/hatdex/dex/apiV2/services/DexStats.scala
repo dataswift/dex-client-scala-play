@@ -26,6 +26,7 @@ trait DexStats {
   protected val ws: WSClient
   protected val schema: String
   protected val dexAddress: String
+  protected val apiVersion: String
 
   protected implicit val dataStatsFormat = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
   protected implicit val namespaceStructureFormat = DexJsonFormats.namespaceStructureFormat
