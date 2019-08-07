@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
-import org.hatdex.hat.api.models.applications.{ Application, ApplicationHistory }
+import org.hatdex.dex.apiV2.services.Errors.{ApiException, DataFormatException, ForbiddenActionException, UnauthorizedActionException}
+import org.hatdex.hat.api.models.applications.{Application, ApplicationHistory}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.Format
+import play.api.libs.json.{Format, Json}
 import play.api.libs.ws._
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DexApplications {
 
@@ -81,4 +81,37 @@ trait DexApplications {
     }
   }
 
+  def registerApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Register new app with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
+    futureResponse.map { response =>
+      response.status match {
+        case CREATED =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Registering application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Registering application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while registering application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
 }
