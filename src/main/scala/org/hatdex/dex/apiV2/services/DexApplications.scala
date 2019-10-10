@@ -9,6 +9,7 @@
 
 package org.hatdex.dex.apiV2.services
 
+import akka.Done
 import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, ForbiddenActionException, UnauthorizedActionException }
 import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import play.api.Logger
@@ -150,7 +151,7 @@ trait DexApplications {
     }
   }
 
-  def publishApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+  def publishApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Done] = {
     logger.debug(s"Publishing app with $dexAddress")
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/publish")
@@ -161,14 +162,7 @@ trait DexApplications {
     futureResponse.map { response =>
       response.status match {
         case OK =>
-          val jsResponse = response.json.validate[Application] recover {
-            case e =>
-              val message = s"Error parsing application: $e"
-              logger.error(message)
-              throw DataFormatException(message)
-          }
-          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
-          jsResponse.get
+          Done
         case UNAUTHORIZED =>
           val message = s"Publishing application with $dexAddress unauthorized"
           logger.error(message)
@@ -184,7 +178,7 @@ trait DexApplications {
     }
   }
 
-  def suspendApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+  def suspendApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Done] = {
     logger.debug(s"Suspending app with $dexAddress")
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/suspend")
@@ -195,14 +189,7 @@ trait DexApplications {
     futureResponse.map { response =>
       response.status match {
         case OK =>
-          val jsResponse = response.json.validate[Application] recover {
-            case e =>
-              val message = s"Error parsing application: $e"
-              logger.error(message)
-              throw DataFormatException(message)
-          }
-          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
-          jsResponse.get
+          Done
         case UNAUTHORIZED =>
           val message = s"Suspending application with $dexAddress unauthorized"
           logger.error(message)
