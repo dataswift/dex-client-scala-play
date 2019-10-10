@@ -218,6 +218,40 @@ trait DexApplications {
     }
   }
 
+  def fetchApplication(applicationId: String)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Fetching application $applicationId with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/$applicationId")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json")
+
+    val futureResponse: Future[WSResponse] = request.get()
+    futureResponse.map { response =>
+      response.status match {
+        case OK =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Fetching application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Fetching application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while Fetching application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
   def updateDeveloper(access_token: String, developer: ApplicationDeveloper)(implicit ec: ExecutionContext): Future[ApplicationDeveloper] = {
     logger.debug(s"Updating developer with $dexAddress")
 
@@ -238,15 +272,15 @@ trait DexApplications {
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case UNAUTHORIZED =>
-          val message = s"Registering application with $dexAddress unauthorized"
+          val message = s"Updating developer with $dexAddress unauthorized"
           logger.error(message)
           throw UnauthorizedActionException(message)
         case FORBIDDEN =>
-          val message = s"Registering application with $dexAddress forbidden - necessary permissions not found"
+          val message = s"Updating developer with $dexAddress forbidden - necessary permissions not found"
           logger.error(message)
           throw ForbiddenActionException(message)
         case _ =>
-          val message = s"Unexpected error while registering application with $dexAddress: $response, ${response.body}"
+          val message = s"Unexpected error while updating developer with $dexAddress: $response, ${response.body}"
           throw new ApiException(message)
       }
     }
