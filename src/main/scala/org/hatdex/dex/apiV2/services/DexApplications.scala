@@ -126,7 +126,7 @@ trait DexApplications {
     val futureResponse: Future[WSResponse] = request.put(Json.toJson(application))
     futureResponse.map { response =>
       response.status match {
-        case CREATED =>
+        case OK =>
           val jsResponse = response.json.validate[Application] recover {
             case e =>
               val message = s"Error parsing application: $e"
