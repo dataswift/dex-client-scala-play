@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.services.Errors.{ApiException, DataFormatException, ForbiddenActionException, UnauthorizedActionException}
-import org.hatdex.hat.api.models.applications.{Application, ApplicationHistory}
+import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, ForbiddenActionException, UnauthorizedActionException }
+import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{ Format, Json }
 import play.api.libs.ws._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexApplications {
 
@@ -28,6 +28,7 @@ trait DexApplications {
 
   protected implicit val applicationFormat: Format[Application] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
   protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
+  protected implicit val developerFormat: Format[ApplicationDeveloper] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationDeveloperFormat
 
   def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications")
@@ -95,6 +96,142 @@ trait DexApplications {
           val jsResponse = response.json.validate[Application] recover {
             case e =>
               val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Registering application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Registering application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while registering application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def editApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Editing app with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.put(Json.toJson(application))
+    futureResponse.map { response =>
+      response.status match {
+        case CREATED =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Editing application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Editing application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while editing application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def publishApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Publishing app with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/publish")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.get()
+    futureResponse.map { response =>
+      response.status match {
+        case OK =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Publishing application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Publishing application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while publishing application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def suspendApplication(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Suspending app with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/suspend")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.get()
+    futureResponse.map { response =>
+      response.status match {
+        case OK =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Suspending application with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Suspending application with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while Suspending application with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def updateDeveloper(access_token: String, developer: ApplicationDeveloper)(implicit ec: ExecutionContext): Future[ApplicationDeveloper] = {
+    logger.debug(s"Updating developer with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/developer")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.put(Json.toJson(developer))
+    futureResponse.map { response =>
+      response.status match {
+        case OK =>
+          val jsResponse = response.json.validate[ApplicationDeveloper] recover {
+            case e =>
+              val message = s"Error parsing developer: $e"
               logger.error(message)
               throw DataFormatException(message)
           }
