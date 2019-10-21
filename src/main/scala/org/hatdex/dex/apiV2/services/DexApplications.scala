@@ -199,7 +199,7 @@ trait DexApplications {
           logger.error(message)
           throw ForbiddenActionException(message)
         case _ =>
-          val message = s"Unexpected error while Suspending application with $dexAddress: $response, ${response.body}"
+          val message = s"Unexpected error while suspending application with $dexAddress: $response, ${response.body}"
           throw new ApiException(message)
       }
     }
@@ -233,7 +233,7 @@ trait DexApplications {
           logger.error(message)
           throw ForbiddenActionException(message)
         case _ =>
-          val message = s"Unexpected error while Fetching application with $dexAddress: $response, ${response.body}"
+          val message = s"Unexpected error while fetching application with $dexAddress: $response, ${response.body}"
           throw new ApiException(message)
       }
     }
@@ -268,6 +268,40 @@ trait DexApplications {
           throw ForbiddenActionException(message)
         case _ =>
           val message = s"Unexpected error while updating developer with $dexAddress: $response, ${response.body}"
+          throw new ApiException(message)
+      }
+    }
+  }
+
+  def createNewAppVersion(access_token: String, application: Application)(implicit ec: ExecutionContext): Future[Application] = {
+    logger.debug(s"Creating new app version with $dexAddress")
+
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/versions")
+      .withVirtualHost(dexAddress)
+      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+
+    val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
+    futureResponse.map { response =>
+      response.status match {
+        case CREATED =>
+          val jsResponse = response.json.validate[Application] recover {
+            case e =>
+              val message = s"Error parsing application: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
+          // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
+          jsResponse.get
+        case UNAUTHORIZED =>
+          val message = s"Creating new application version with $dexAddress unauthorized"
+          logger.error(message)
+          throw UnauthorizedActionException(message)
+        case FORBIDDEN =>
+          val message = s"Creating new application version with $dexAddress forbidden - necessary permissions not found"
+          logger.error(message)
+          throw ForbiddenActionException(message)
+        case _ =>
+          val message = s"Unexpected error while creating new application version with $dexAddress: $response, ${response.body}"
           throw new ApiException(message)
       }
     }
