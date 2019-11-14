@@ -10,11 +10,11 @@
 package org.hatdex.dex.apiV2.services
 
 import akka.Done
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, ForbiddenActionException, UnauthorizedActionException }
+import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException }
 import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{ Format, Json }
+import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
@@ -53,6 +53,37 @@ trait DexApplications {
           val message = s"Retrieving application info failed: $response, ${response.body}"
           logger.error(message)
           throw new ApiException(message)
+      }
+    }
+  }
+
+  def application(applicationId: String, lang: Option[String] = None)(implicit ec: ExecutionContext): Future[Application] = {
+    val requestedLanguage = lang.getOrElse("en")
+    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications/$applicationId")
+      .withVirtualHost(dexAddress)
+      .withQueryStringParameters("lang" -> requestedLanguage)
+      .withHttpHeaders("Accept" -> "application/json")
+
+    val futureResponse: Future[WSResponse] = request.get()
+    futureResponse.flatMap { response =>
+      response.status match {
+        case OK =>
+          response.json.validate[Application] match {
+            case s: JsSuccess[Application] => Future.successful(s.get)
+            case e: JsError =>
+              val message = s"Error parsing application structures: $e"
+              logger.error(message)
+              Future.failed(DataFormatException(message))
+          }
+
+        case NOT_FOUND =>
+          val message = s"[$applicationId] [$requestedLanguage] Application information not found."
+          logger.info(message)
+          Future.failed(DetailsNotFoundException(message))
+        case _ =>
+          val message = s"Retrieving application info failed: $response, ${response.body}"
+          logger.error(message)
+          Future.failed(new ApiException(s"[$applicationId] [$requestedLanguage] Failed to verify application ID"))
       }
     }
   }
