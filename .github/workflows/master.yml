@@ -1,0 +1,23 @@
+name: Deploy Dex Scala Client
+
+on:
+  push:
+    branches:
+      - github-actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup NodeJs environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Remove old assets
+        run: |
+          export PATH=$PATH:$HOME/.local/bin
+          sbt clean
+          sbt compile
+          sb  test:compile
+          sbt coverage test
