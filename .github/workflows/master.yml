@@ -14,10 +14,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - name: Remove old assets
+      - name: Sbt clean, compile and test
         run: |
           export PATH=$PATH:$HOME/.local/bin
           sbt clean
           sbt compile
           sb  test:compile
           sbt coverage test
+        env:
+          AWS_DEFAULT_REGION: eu-west-1
