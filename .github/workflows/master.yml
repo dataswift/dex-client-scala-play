@@ -19,7 +19,5 @@ jobs:
           export PATH=$PATH:$HOME/.local/bin
           sbt clean
           sbt compile
-          sb  test:compile
-          sbt coverage test
         env:
           AWS_DEFAULT_REGION: eu-west-1
