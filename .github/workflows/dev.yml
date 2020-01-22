@@ -1,10 +1,9 @@
 name: Deploy Dex Scala Client
 
 on:
-  release:
-    types: [published]
+  push:
     branches:
-      - master
+      - github-actions
 
 jobs:
   build:
