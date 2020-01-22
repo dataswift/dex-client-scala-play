@@ -4,7 +4,7 @@ resolvers += Resolver.typesafeRepo("releases")
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.4")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.6.0")
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.12")
 
 // Code Quality
