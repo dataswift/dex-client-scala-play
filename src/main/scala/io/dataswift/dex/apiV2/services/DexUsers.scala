@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package io.dataswift.dex.apiV2.services
 
 import akka.Done
 import play.api.Logger

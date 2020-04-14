@@ -7,10 +7,10 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package io.dataswift.dex.apiV2.services
 
 import akka.Done
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException }
+import Errors.{ ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException }
 import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import play.api.Logger
 import play.api.http.Status._

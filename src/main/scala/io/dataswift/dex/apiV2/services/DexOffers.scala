@@ -7,11 +7,10 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package io.dataswift.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.json.DexJsonFormats
-import org.hatdex.dex.apiV2.models.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
-import org.hatdex.dex.apiV2.services.Errors._
+import io.dataswift.dex.apiV2.models.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
+import io.dataswift.dex.apiV2.services.Errors._
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -26,7 +25,7 @@ trait DexOffers {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  import DexJsonFormats._
+  import io.dataswift.dex.apiV2.json.DexJsonFormats._
 
   def listOffers()(implicit ec: ExecutionContext): Future[Seq[Offer]] = {
     logger.debug(s"Get DEX data offers from $dexAddress")

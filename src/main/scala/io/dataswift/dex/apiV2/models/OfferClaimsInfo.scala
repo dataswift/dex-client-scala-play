@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.apiV2.models
+package io.dataswift.dex.apiV2.models
 
 import org.joda.time.DateTime
 

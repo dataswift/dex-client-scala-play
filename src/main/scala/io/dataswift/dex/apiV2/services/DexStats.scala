@@ -7,11 +7,11 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package io.dataswift.dex.apiV2.services
 
-import org.hatdex.dex.apiV2.json.DexJsonFormats
-import org.hatdex.dex.apiV2.models.NamespaceStructure
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
+import io.dataswift.dex.apiV2.json.DexJsonFormats
+import io.dataswift.dex.apiV2.models.NamespaceStructure
+import io.dataswift.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
 import org.hatdex.hat.api.models.DataStats
 import play.api.Logger
 import play.api.http.Status._

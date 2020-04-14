@@ -1,4 +1,4 @@
-package org.hatdex.dex.apiV2.services
+package io.dataswift.dex.apiV2.services
 
 object Errors {
   class ApiException(message: String = "", cause: Throwable = None.orNull) extends Exception(message, cause)

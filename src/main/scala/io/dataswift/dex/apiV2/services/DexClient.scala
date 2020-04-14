@@ -7,21 +7,24 @@
  *
  */
 
-package org.hatdex.dex.api.services
+package io.dataswift.dex.apiV2.services
 
+import io.dataswift.dex.api.services.{ DexDataPlugs, DexNotices }
 import javax.inject.Inject
-
 import play.api.libs.ws.WSClient
 
 class DexClient(
     val ws: WSClient,
     val dexAddress: String,
-    override val schema: String) extends DexOffers
+    override val schema: String,
+    override val apiVersion: String) extends DexOffers
   with DexNotices
   with DexDataPlugs
-  with DexStats {
+  with DexStats
+  with DexUsers
+  with DexApplications {
 
-  @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
+  @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://", "v1.1")
 
   val logger = play.api.Logger(this.getClass)
 }

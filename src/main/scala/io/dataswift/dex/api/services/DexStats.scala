@@ -7,39 +7,38 @@
  *
  */
 
-package org.hatdex.dex.api.services
+package io.dataswift.dex.api.services
 
-import java.util.UUID
-
+import org.hatdex.hat.api.models.DataStats
 import play.api.Logger
 import play.api.http.Status._
+import play.api.libs.json.Json
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait DexDataPlugs {
+trait DexStats {
+
+  import org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+
   val logger: Logger
   val ws: WSClient
   val schema: String
   val dexAddress: String
 
-  def dataplugConnectHat(access_token: String, dataplugId: UUID, hatAddress: String)(implicit ec: ExecutionContext): Future[Unit] = {
-    logger.debug(s"Connect dataplug $dataplugId to $hatAddress via MarketSquare")
-
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/dataplugs/$dataplugId/connect")
+  def postStats(access_token: String, stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
+    val request: WSRequest = ws.url(s"$schema$dexAddress/stats/report")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters(("hat", hatAddress))
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
-    val futureResponse: Future[WSResponse] = request.get()
+    val futureResponse: Future[WSResponse] = request.post(Json.toJson(stats))
     futureResponse.map { response =>
       response.status match {
         case OK =>
-          ()
+          Future.successful(())
         case _ =>
-          val message = s"Connecting dataplug $dataplugId to $hatAddress via MarketSquare failed: $response, ${response.body}"
-          logger.error(message)
-          throw new RuntimeException(message)
+          logger.error(s"Data Stats reporting failed: $response, ${response.body}")
+          Future.failed(new RuntimeException(s"Data Stats reporting failed: $response, ${response.body}"))
       }
     }
   }

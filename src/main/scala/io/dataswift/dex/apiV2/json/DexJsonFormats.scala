@@ -7,10 +7,10 @@
  *
  */
 
-package org.hatdex.dex.apiV2.json
+package io.dataswift.dex.apiV2.json
 
+import io.dataswift.dex.apiV2.models.{ EndpointStructure, FieldInfo, FieldStructure, NamespaceStructure, Offer, OfferClaimSummary, OfferClaimsInfo, OfferHat, OfferHatCredentialsSummary, OfferRegistration }
 import org.hatdex.hat.api.json.{ DataDebitFormats, RichDataJsonFormats }
-import org.hatdex.dex.apiV2.models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 

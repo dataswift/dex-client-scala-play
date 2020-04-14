@@ -1,4 +1,4 @@
-package org.hatdex.dex.apiV2.models
+package io.dataswift.dex.apiV2.models
 
 import java.util.UUID
 

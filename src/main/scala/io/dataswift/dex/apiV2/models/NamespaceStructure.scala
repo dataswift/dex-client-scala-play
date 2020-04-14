@@ -5,7 +5,7 @@
  *  Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 8 2017
  */
 
-package org.hatdex.dex.apiV2.models
+package io.dataswift.dex.apiV2.models
 
 case class FieldInfo(
     name: String,

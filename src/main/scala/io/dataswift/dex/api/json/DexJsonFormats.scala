@@ -7,10 +7,10 @@
  *
  */
 
-package org.hatdex.dex.api.json
+package io.dataswift.dex.api.json
 
+import io.dataswift.dex.api.models.{ Notice, OfferClaim, OfferClaimsInfo, OfferHat, OfferHatCredentials }
 import org.hatdex.hat.api.json.HatJsonFormats
-import org.hatdex.dex.api.models._
 import play.api.libs.json._
 
 trait DexJsonFormats extends HatJsonFormats {

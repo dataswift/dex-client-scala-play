@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.api.models
+package io.dataswift.dex.api.models
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json

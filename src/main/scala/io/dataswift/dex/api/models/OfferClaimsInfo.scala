@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.api.models
+package io.dataswift.dex.api.models
 
 import java.util.UUID
 

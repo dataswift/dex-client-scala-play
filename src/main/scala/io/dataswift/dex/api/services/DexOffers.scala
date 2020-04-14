@@ -7,12 +7,11 @@
  *
  */
 
-package org.hatdex.dex.api.services
+package io.dataswift.dex.api.services
 
 import java.util.UUID
 
-import org.hatdex.dex.api.json.DexJsonFormats
-import org.hatdex.dex.api.models.OfferClaimsInfo
+import io.dataswift.dex.api.models.OfferClaimsInfo
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.ws._
@@ -25,7 +24,7 @@ trait DexOffers {
   val schema: String
   val dexAddress: String
 
-  import DexJsonFormats.offerClaimsInfoFormat
+  import io.dataswift.dex.api.json.DexJsonFormats.offerClaimsInfoFormat
 
   def offerClaims(access_token: String, offerId: UUID)(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
