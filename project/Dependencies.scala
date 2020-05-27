@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala = Seq("2.12.4", "2.11.8")
+    val crossScala = Seq("2.12.6", "2.11.8")
     val scalaVersion = crossScala.head
   }
 
@@ -43,7 +43,7 @@ object Dependencies {
     }
 
     object HATDeX {
-      private val version = "2.6.8-SNAPSHOT"
+      private val version = "2.6.9"
       val hatClient = "org.hatdex" %% "hat-client-scala-play" % version
     }
   }
