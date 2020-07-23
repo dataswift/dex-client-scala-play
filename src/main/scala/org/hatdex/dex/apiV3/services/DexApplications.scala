@@ -10,14 +10,14 @@
 package org.hatdex.dex.apiV3.services
 
 import akka.Done
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException }
-import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
+import org.hatdex.dex.apiV2.services.Errors.{ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException}
+import org.hatdex.hat.api.models.applications.{Application, ApplicationDeveloper, ApplicationHistory, ApplicationKind}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
+import play.api.libs.json.{Format, JsError, JsSuccess, Json}
 import play.api.libs.ws._
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DexApplications {
 
@@ -31,10 +31,21 @@ trait DexApplications {
   protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
   protected implicit val developerFormat: Format[ApplicationDeveloper] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationDeveloperFormat
 
-  def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+  private def optionalParam[T](option: Option[T], param: String ): Option[(String, String)] = {
+    option.map(x => (param -> x.toString))
+  }
+
+  def applications(unpublished: Option[Boolean] = None, kind: Option[ApplicationKind.Kind] = None, startId: Option[String] = None, limit: Option[Int] = None)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+    val queryParams: Seq[(String, String)] = List(
+      optionalParam(unpublished, "unpublished"),
+      optionalParam(kind, "kind"),
+      optionalParam(startId, "startId"),
+      optionalParam(limit, "limit"),
+    ).flatten
+
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
+      .withQueryStringParameters(queryParams:_*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -88,10 +99,17 @@ trait DexApplications {
     }
   }
 
-  def applicationHistory(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
+  def applicationHistory(unpublished: Option[Boolean] = None, kind: Option[ApplicationKind.Kind] = None, startId: Option[String] = None, limit: Option[Int] = None)(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
+    val queryParams: Seq[(String, String)] = List(
+      optionalParam(unpublished, "unpublished"),
+      optionalParam(kind, "kind"),
+      optionalParam(startId, "startId"),
+      optionalParam(limit, "limit"),
+    ).flatten
+
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications-history")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
+      .withQueryStringParameters(queryParams:_*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
