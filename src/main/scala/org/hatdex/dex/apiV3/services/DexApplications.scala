@@ -35,17 +35,22 @@ trait DexApplications {
     option.map(x => (param -> x.toString))
   }
 
-  def applications(unpublished: Option[Boolean] = None, kind: Option[ApplicationKind.Kind] = None, startId: Option[String] = None, limit: Option[Int] = None)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
-    val queryParams: Seq[(String, String)] = List(
+  private def queryParams(unpublished: Option[Boolean],
+                          kind: Option[ApplicationKind.Kind],
+                          startId: Option[String],
+                          limit: Option[Int]): Seq[(String, String)] =
+    List(
       optionalParam(unpublished, "unpublished"),
       optionalParam(kind, "kind"),
       optionalParam(startId, "startId"),
       optionalParam(limit, "limit"),
     ).flatten
 
+  def applications(unpublished: Option[Boolean] = None, kind: Option[ApplicationKind.Kind] = None, startId: Option[String] = None, limit: Option[Int] = None)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters(queryParams:_*)
+      .withQueryStringParameters(queryParams(unpublished, kind, startId, limit):_*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -100,16 +105,10 @@ trait DexApplications {
   }
 
   def applicationHistory(unpublished: Option[Boolean] = None, kind: Option[ApplicationKind.Kind] = None, startId: Option[String] = None, limit: Option[Int] = None)(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
-    val queryParams: Seq[(String, String)] = List(
-      optionalParam(unpublished, "unpublished"),
-      optionalParam(kind, "kind"),
-      optionalParam(startId, "startId"),
-      optionalParam(limit, "limit"),
-    ).flatten
 
     val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/applications-history")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters(queryParams:_*)
+      .withQueryStringParameters(queryParams(unpublished, kind, startId, limit):_*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
