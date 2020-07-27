@@ -11,25 +11,23 @@ package org.hatdex.dex.apiV3.services
 
 import akka.Done
 import org.hatdex.dex.apiV2.services.Errors.{ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException}
-import org.hatdex.hat.api.models.applications.{Application, ApplicationDeveloper, ApplicationHistory, ApplicationKind}
+import org.hatdex.hat.api.models.applications.{Application, ApplicationDeveloper, ApplicationHistory, ApplicationKind, PayloadWrapper}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{Format, JsError, JsSuccess, Json}
+import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.libs.ws._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 trait DexApplications {
 
+  import org.hatdex.hat.api.json.ApplicationJsonProtocol._
+
   protected val logger: Logger
   protected val ws: WSClient
   protected val schema: String
   protected val dexAddress: String
   protected val apiVersion: String
-
-  protected implicit val applicationFormat: Format[Application] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
-  protected implicit val applicationHistoryFormat: Format[ApplicationHistory] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
-  protected implicit val developerFormat: Format[ApplicationDeveloper] = org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationDeveloperFormat
 
   private def optionalParam[T](option: Option[T], param: String ): Option[(String, String)] = {
     option.map(x => (param -> x.toString))
@@ -57,7 +55,7 @@ trait DexApplications {
     futureResponse.map { response =>
       response.status match {
         case OK =>
-          val jsResponse = response.json.validate[Seq[Application]] recover {
+          val jsResponse = response.json.validate[PayloadWrapper].flatMap(_.data.validate[Seq[Application]]) recover {
             case e =>
               val message = s"Error parsing application structures: $e"
               logger.error(message)
