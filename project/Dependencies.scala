@@ -17,8 +17,8 @@ object Dependencies {
   }
 
   val resolvers = Seq(
-    "Atlassian Releases" at "https://maven.atlassian.com/public/",
-    "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
+    //"Atlassian Releases" at "https://maven.atlassian.com/public/",
+    //"scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
@@ -30,8 +30,8 @@ object Dependencies {
       val version = play.core.PlayVersion.current
       val ws = "com.typesafe.play" %% "play-ahc-ws" % version
       val cache = "com.typesafe.play" %% "play-cache" % version
-      val test = "com.typesafe.play" %% "play-test" % version
-      val specs2 = "com.typesafe.play" %% "play-specs2" % version
+      //val test = "com.typesafe.play" %% "play-test" % version this isnt used anywhere and all other packages use scalatest ??
+      //val specs2 = "com.typesafe.play" %% "play-specs2" % version
       val json = "com.typesafe.play" %% "play-json" % "2.6.9"
       val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.6.9"
     }
@@ -46,6 +46,14 @@ object Dependencies {
     object HATDeX {
       private val version = "2.6.12"
       val hatClient = "org.hatdex" %% "hat-client-scala-play" % version
+    }
+
+    object Test{
+      val scalacheck = "org.scalacheck"        %% "scalacheck"           % "1.14.3"
+      val scalatest = "org.scalatest"         %% "scalatest"            % "3.2.0"
+      val funsuite = "org.scalatest" %% "scalatest-funsuite" % "3.2.0"
+      val testpluscheck = "org.scalatestplus" %% "scalacheck-1-14" % "3.2.0.0"
+      val matchers = "org.scalatest" %% "scalatest-mustmatchers" % "3.2.0"
     }
   }
 }

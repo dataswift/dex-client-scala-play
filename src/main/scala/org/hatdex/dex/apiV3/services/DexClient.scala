@@ -24,7 +24,7 @@ class DexClient(
   with DexUsers
   with DexApplications {
 
-  override val apiVersion: String = "v2"
+  override val apiVersion: String = "v3"
   @Inject def this(ws: WSClient, dexAddress: String) = this(ws, dexAddress, "https://")
 
   val logger = play.api.Logger(this.getClass)
