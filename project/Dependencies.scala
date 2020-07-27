@@ -17,8 +17,6 @@ object Dependencies {
   }
 
   val resolvers = Seq(
-    //"Atlassian Releases" at "https://maven.atlassian.com/public/",
-    //"scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
@@ -30,8 +28,6 @@ object Dependencies {
       val version = play.core.PlayVersion.current
       val ws = "com.typesafe.play" %% "play-ahc-ws" % version
       val cache = "com.typesafe.play" %% "play-cache" % version
-      //val test = "com.typesafe.play" %% "play-test" % version this isnt used anywhere and all other packages use scalatest ??
-      //val specs2 = "com.typesafe.play" %% "play-specs2" % version
       val json = "com.typesafe.play" %% "play-json" % "2.6.9"
       val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.6.9"
     }

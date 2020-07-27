@@ -7,8 +7,6 @@ Defaults.itSettings
 libraryDependencies ++= Seq(
   Library.Play.ws,
   Library.Play.cache,
-  //Library.Play.test,
-  //Library.Play.specs2,
   Library.Play.json,
   Library.Play.jsonJoda,
   Library.Specs2.matcherExtra,
