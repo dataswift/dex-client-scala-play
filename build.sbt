@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
   Library.Test.funsuite,
   Library.Test.testpluscheck,
   Library.Test.matchers,
-  "ch.qos.logback" % "logback-classic" % "1.2.3"
+  Library.Test.logging
 )
 
 publishTo := {
