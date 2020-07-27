@@ -41,7 +41,7 @@ trait DexApplications {
                           limit: Option[Int]): Seq[(String, String)] =
     List(
       optionalParam(unpublished, "unpublished"),
-      optionalParam(kind, "kind"),
+      optionalParam(kind.map(_.kind), "kind"),
       optionalParam(startId, "startId"),
       optionalParam(limit, "limit"),
     ).flatten
