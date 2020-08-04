@@ -26,10 +26,14 @@ trait DexNotices {
 
   import DexJsonFormats.noticeFormat
 
-  def postNotice(access_token: String, notice: Notice)(implicit ec: ExecutionContext): Future[Notice] = {
+  def postNotice(
+      access_token: String,
+      notice: Notice
+    )(implicit ec: ExecutionContext): Future[Notice] = {
     logger.debug(s"Post notice $notice to MarketSquare")
 
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/notices")
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/api/notices")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -38,10 +42,10 @@ trait DexNotices {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[Notice] recover {
-            case e =>
-              logger.error(s"Error parsing posted Notice: ${e}")
-              throw new RuntimeException(s"Error parsing posted Notice: ${e}")
-          }
+                case e =>
+                  logger.error(s"Error parsing posted Notice: ${e}")
+                  throw new RuntimeException(s"Error parsing posted Notice: ${e}")
+              }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>

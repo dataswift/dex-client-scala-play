@@ -28,11 +28,15 @@ trait DexStats {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  protected implicit val dataStatsFormat = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
-  protected implicit val namespaceStructureFormat = DexJsonFormats.namespaceStructureFormat
+  implicit protected val dataStatsFormat          = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+  implicit protected val namespaceStructureFormat = DexJsonFormats.namespaceStructureFormat
 
-  def postStats(access_token: String, stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/stats/report")
+  def postStats(
+      access_token: String,
+      stats: Seq[DataStats]
+    )(implicit ec: ExecutionContext): Future[Unit] = {
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/stats/report")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -49,7 +53,8 @@ trait DexStats {
   }
 
   def availableData()(implicit ec: ExecutionContext): Future[Seq[NamespaceStructure]] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/stats/available-data")
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/stats/available-data")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -58,11 +63,11 @@ trait DexStats {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[Seq[NamespaceStructure]] recover {
-            case e =>
-              val message = s"Error parsing namespace structures: $e"
-              logger.error(message)
-              throw DataFormatException(message)
-          }
+                case e =>
+                  val message = s"Error parsing namespace structures: $e"
+                  logger.error(message)
+                  throw DataFormatException(message)
+              }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>

@@ -19,8 +19,12 @@ case class NoticeTarget(
     withHatAddress: Option[Seq[String]])
 
 object NoticeTarget {
-  implicit val noticeTargetJsonReads = Json.reads[NoticeTarget]
+  implicit val noticeTargetJsonReads  = Json.reads[NoticeTarget]
   implicit val noticeTargetJsonWrites = Json.writes[NoticeTarget]
 }
 
-case class Notice(id: Option[Long], message: String, dateCreated: DateTime, target: NoticeTarget)
+case class Notice(
+    id: Option[Long],
+    message: String,
+    dateCreated: DateTime,
+    target: NoticeTarget)

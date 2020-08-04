@@ -23,10 +23,15 @@ trait DexDataPlugs {
   val schema: String
   val dexAddress: String
 
-  def dataplugConnectHat(access_token: String, dataplugId: UUID, hatAddress: String)(implicit ec: ExecutionContext): Future[Unit] = {
+  def dataplugConnectHat(
+      access_token: String,
+      dataplugId: UUID,
+      hatAddress: String
+    )(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Connect dataplug $dataplugId to $hatAddress via MarketSquare")
 
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/dataplugs/$dataplugId/connect")
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/api/dataplugs/$dataplugId/connect")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters(("hat", hatAddress))
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
@@ -37,7 +42,8 @@ trait DexDataPlugs {
         case OK =>
           ()
         case _ =>
-          val message = s"Connecting dataplug $dataplugId to $hatAddress via MarketSquare failed: $response, ${response.body}"
+          val message =
+            s"Connecting dataplug $dataplugId to $hatAddress via MarketSquare failed: $response, ${response.body}"
           logger.error(message)
           throw new RuntimeException(message)
       }
