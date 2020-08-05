@@ -26,8 +26,12 @@ trait DexUsers {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  def registerHat(hatName: String, domain: String)(implicit ec: ExecutionContext): Future[Done] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/users/registerHat")
+  def registerHat(
+      hatName: String,
+      domain: String
+    )(implicit ec: ExecutionContext): Future[Done] = {
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/api/$apiVersion/users/registerHat")
       .withHttpHeaders("Accept" -> "application/json")
 
     val hat = Json.obj("hatAddress" -> Json.toJson(s"$hatName.$domain"))
@@ -42,8 +46,12 @@ trait DexUsers {
     }
   }
 
-  def registerTosConsent(accessToken: String, applicationId: String)(implicit ec: ExecutionContext): Future[Done] = {
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/$apiVersion/users/register-consent/$applicationId")
+  def registerTosConsent(
+      accessToken: String,
+      applicationId: String
+    )(implicit ec: ExecutionContext): Future[Done] = {
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/api/$apiVersion/users/register-consent/$applicationId")
       .withVirtualHost(dexAddress)
       .withRequestTimeout(2500.millis)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)

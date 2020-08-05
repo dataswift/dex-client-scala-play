@@ -19,29 +19,34 @@ case class Offer(
     requiredMinUser: Long,
     requiredMaxUser: Long,
     status: String // status one of "draft", "paid", "approved", "rejected", "oversubscribed", "satisfied"
-) {
+  ) {
 
-  def approved: Boolean = {
+  def approved: Boolean =
     status == "approved" || status == "satisfied" || status == "oversubscribed"
-  }
 
-  def satisfied: Boolean = {
+  def satisfied: Boolean =
     status == "satisfied" || status == "oversubscribed"
-  }
 }
 
 object Offer {
-  def apply(registration: OfferRegistration, providerId: UUID): Offer = {
+  def apply(
+      registration: OfferRegistration,
+      providerId: UUID): Offer =
     Offer(
       registration.offerId,
-      registration.created.getOrElse(DateTime.now()), providerId,
-      registration.title, registration.description,
-      registration.starts, registration.expires,
+      registration.created.getOrElse(DateTime.now()),
+      providerId,
+      registration.title,
+      registration.description,
+      registration.starts,
+      registration.expires,
       registration.collectionDuration,
-      registration.dataConditions, registration.requiredData,
-      registration.requiredMinUser, registration.requiredMaxUser,
-      registration.status)
-  }
+      registration.dataConditions,
+      registration.requiredData,
+      registration.requiredMinUser,
+      registration.requiredMaxUser,
+      registration.status
+    )
 }
 
 case class OfferRegistration(
