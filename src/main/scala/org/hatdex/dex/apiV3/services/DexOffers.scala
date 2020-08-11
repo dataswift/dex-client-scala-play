@@ -7,11 +7,11 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package org.hatdex.dex.apiV3.services
 
-import org.hatdex.dex.apiV2.json.DexJsonFormats
-import org.hatdex.dex.apiV2.models.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
-import org.hatdex.dex.apiV2.services.Errors._
+import org.hatdex.dex.apiV3.json.DexJsonFormats
+import org.hatdex.dex.apiV3.models.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
+import org.hatdex.dex.apiV3.services.Errors._
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -32,7 +32,7 @@ trait DexOffers {
     logger.debug(s"Get DEX data offers from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/v2/offers")
+      .url(s"$schema$dexAddress/api/$apiVersion/offers")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -63,7 +63,7 @@ trait DexOffers {
     logger.debug(s"Register new offer with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/v2/offer")
+      .url(s"$schema$dexAddress/api/$apiVersion/offer")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -101,7 +101,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/v2/offer/$offerId/claims")
+      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -141,7 +141,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/v2/offer/$offerId/registerClaim")
+      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId/registerClaim")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("hat", hat))
@@ -193,7 +193,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/v2/offer/$offerId")
+      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("status", status))

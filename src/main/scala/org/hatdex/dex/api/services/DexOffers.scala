@@ -27,10 +27,14 @@ trait DexOffers {
 
   import DexJsonFormats.offerClaimsInfoFormat
 
-  def offerClaims(access_token: String, offerId: UUID)(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
+  def offerClaims(
+      access_token: String,
+      offerId: UUID
+    )(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
-    val request: WSRequest = ws.url(s"$schema$dexAddress/api/offer/$offerId/claims")
+    val request: WSRequest = ws
+      .url(s"$schema$dexAddress/api/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -39,15 +43,17 @@ trait DexOffers {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[OfferClaimsInfo] recover {
-            case e =>
-              logger.error(s"Error parsing successful offer claims info response: ${e}")
-              throw new RuntimeException(s"Error parsing successful offer claims info response: ${e}")
-          }
+                case e =>
+                  logger.error(s"Error parsing successful offer claims info response: ${e}")
+                  throw new RuntimeException(s"Error parsing successful offer claims info response: ${e}")
+              }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>
           logger.error(s"Fetching Offer $offerId claims from $dexAddress failed, $response, ${response.body}")
-          throw new RuntimeException(s"Fetching Offer $offerId claims from $dexAddress failed, $response, ${response.body}")
+          throw new RuntimeException(
+            s"Fetching Offer $offerId claims from $dexAddress failed, $response, ${response.body}"
+          )
       }
     }
   }

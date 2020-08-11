@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package org.hatdex.dex.apiV3.services
 
 import akka.Done
 import org.hatdex.dex.apiV2.services.Errors.{
@@ -17,15 +17,23 @@ import org.hatdex.dex.apiV2.services.Errors.{
   ForbiddenActionException,
   UnauthorizedActionException
 }
-import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
+import org.hatdex.hat.api.models.applications.{
+  Application,
+  ApplicationDeveloper,
+  ApplicationHistory,
+  ApplicationKind,
+  PayloadWrapper
+}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
+import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexApplications {
+
+  import org.hatdex.hat.api.json.ApplicationJsonProtocol._
 
   protected val logger: Logger
   protected val ws: WSClient
@@ -33,25 +41,41 @@ trait DexApplications {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  implicit protected val applicationFormat: Format[Application] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
-  implicit protected val applicationHistoryFormat: Format[ApplicationHistory] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
-  implicit protected val developerFormat: Format[ApplicationDeveloper] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationDeveloperFormat
+  private def optionalParam[T](
+      option: Option[T],
+      param: String): Option[(String, String)] =
+    option.map(x => (param -> x.toString))
 
-  def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+  private def queryParams(
+      unpublished: Option[Boolean],
+      kind: Option[ApplicationKind.Kind],
+      startId: Option[String],
+      limit: Option[Int]): Seq[(String, String)] =
+    List(
+      optionalParam(unpublished, "unpublished"),
+      optionalParam(kind.map(_.kind), "kind"),
+      optionalParam(startId, "startId"),
+      optionalParam(limit, "limit")
+    ).flatten
+
+  def applications(
+      unpublished: Option[Boolean] = None,
+      kind: Option[ApplicationKind.Kind] = None,
+      startId: Option[String] = None,
+      limit: Option[Int] = None
+    )(implicit ec: ExecutionContext): Future[Seq[Application]] = {
+
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
+      .withQueryStringParameters(queryParams(unpublished, kind, startId, limit): _*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>
       response.status match {
         case OK =>
-          val jsResponse = response.json.validate[Seq[Application]] recover {
+          val jsResponse = response.json.validate[PayloadWrapper].flatMap(_.data.validate[Seq[Application]]) recover {
                 case e =>
                   val message = s"Error parsing application structures: $e"
                   logger.error(message)
@@ -103,12 +127,16 @@ trait DexApplications {
   }
 
   def applicationHistory(
-      includeUnpublished: Boolean = false
+      unpublished: Option[Boolean] = None,
+      kind: Option[ApplicationKind.Kind] = None,
+      startId: Option[String] = None,
+      limit: Option[Int] = None
     )(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
+
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/api/$apiVersion/applications-history")
       .withVirtualHost(dexAddress)
-      .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
+      .withQueryStringParameters(queryParams(unpublished, kind, startId, limit): _*)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()

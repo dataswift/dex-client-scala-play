@@ -7,10 +7,10 @@
  *
  */
 
-package org.hatdex.dex.apiV2.json
+package org.hatdex.dex.apiV3.json
 
 import org.hatdex.hat.api.json.{ DataDebitFormats, RichDataJsonFormats }
-import org.hatdex.dex.apiV2.models._
+import org.hatdex.dex.apiV3.models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 

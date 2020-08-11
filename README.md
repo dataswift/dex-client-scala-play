@@ -37,3 +37,12 @@ The client is non-blocking and is built around standard Scala Futures. For examp
 
 Here `accessToken` is an access token you have received from DEX for your account and the `offerId` is the UUID of the offer you have put in and that has been satisfied
 
+## Tests
+
+### Integ Tests
+* sbt it:test
+* Tests require a running Dex. Todo this run the dex test script from the dex project `./end_to_end_test/test.sh -s`
+* Currently Integ tests are only able to work against unauthorized endpoints
+
+
+

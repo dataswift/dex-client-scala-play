@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.dex.apiV2.services
+package org.hatdex.dex.apiV3.services
 
 import akka.Done
 import play.api.Logger
@@ -31,7 +31,7 @@ trait DexUsers {
       domain: String
     )(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/users/registerHat")
+      .url(s"$schema$dexAddress/api/$apiVersion/users/registerHat")
       .withHttpHeaders("Accept" -> "application/json")
 
     val hat = Json.obj("hatAddress" -> Json.toJson(s"$hatName.$domain"))
@@ -51,7 +51,7 @@ trait DexUsers {
       applicationId: String
     )(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/users/register-consent/$applicationId")
+      .url(s"$schema$dexAddress/api/$apiVersion/users/register-consent/$applicationId")
       .withVirtualHost(dexAddress)
       .withRequestTimeout(2500.millis)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)

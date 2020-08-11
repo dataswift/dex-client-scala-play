@@ -1,4 +1,4 @@
-package org.hatdex.dex.apiV2.models
+package org.hatdex.dex.apiV3.models
 
 import java.util.UUID
 

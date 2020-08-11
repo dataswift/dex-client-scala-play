@@ -1,16 +1,24 @@
 import Dependencies._
 
+configs(IntegrationTest)
+
+Defaults.itSettings
+
 libraryDependencies ++= Seq(
   Library.Play.ws,
   Library.Play.cache,
-  Library.Play.test,
-  Library.Play.specs2,
   Library.Play.json,
   Library.Play.jsonJoda,
   Library.Specs2.matcherExtra,
   Library.Specs2.mock,
   Library.Specs2.core,
-  Library.HATDeX.hatClient
+  Library.HATDeX.hatClient,
+  Library.Test.scalacheck,
+  Library.Test.scalatest,
+  Library.Test.funsuite,
+  Library.Test.testpluscheck,
+  Library.Test.matchers,
+  Library.Test.logging
 )
 
 publishTo := {
