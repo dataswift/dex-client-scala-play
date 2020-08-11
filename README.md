@@ -36,3 +36,4 @@ The client is non-blocking and is built around standard Scala Futures. For examp
     } yield claims
 
 Here `accessToken` is an access token you have received from DEX for your account and the `offerId` is the UUID of the offer you have put in and that has been satisfied
+

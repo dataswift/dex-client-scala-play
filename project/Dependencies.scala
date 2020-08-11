@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala = Seq("2.12.4", "2.11.8")
+    val crossScala = Seq("2.12.11")
     val scalaVersion = crossScala.head
   }
 
@@ -21,7 +21,8 @@ object Dependencies {
     "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
-    "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
+    "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
+    Resolver.file("local-environment", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
   )
 
   object Library {
@@ -43,7 +44,7 @@ object Dependencies {
     }
 
     object HATDeX {
-      private val version = "2.6.8-SNAPSHOT"
+      private val version = "2.6.12"
       val hatClient = "org.hatdex" %% "hat-client-scala-play" % version
     }
   }
