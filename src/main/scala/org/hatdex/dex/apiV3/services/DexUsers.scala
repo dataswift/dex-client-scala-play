@@ -27,9 +27,8 @@ trait DexUsers {
   protected val apiVersion: String
 
   def registerHat(
-      hatName: String,
-      domain: String
-    )(implicit ec: ExecutionContext): Future[Done] = {
+    hatName: String,
+    domain: String)(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/api/$apiVersion/users/registerHat")
       .withHttpHeaders("Accept" -> "application/json")
@@ -47,9 +46,8 @@ trait DexUsers {
   }
 
   def registerTosConsent(
-      accessToken: String,
-      applicationId: String
-    )(implicit ec: ExecutionContext): Future[Done] = {
+    accessToken: String,
+    applicationId: String)(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/api/$apiVersion/users/register-consent/$applicationId")
       .withVirtualHost(dexAddress)

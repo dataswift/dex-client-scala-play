@@ -24,10 +24,9 @@ trait DexDataPlugs {
   val dexAddress: String
 
   def dataplugConnectHat(
-      access_token: String,
-      dataplugId: UUID,
-      hatAddress: String
-    )(implicit ec: ExecutionContext): Future[Unit] = {
+    access_token: String,
+    dataplugId: UUID,
+    hatAddress: String)(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Connect dataplug $dataplugId to $hatAddress via MarketSquare")
 
     val request: WSRequest = ws

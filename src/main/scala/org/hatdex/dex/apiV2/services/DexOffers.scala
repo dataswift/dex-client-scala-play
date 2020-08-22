@@ -41,11 +41,11 @@ trait DexOffers {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[Seq[Offer]] recover {
-                case e =>
-                  val message = s"Error parsing successful offer list response: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing successful offer list response: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>
@@ -57,9 +57,8 @@ trait DexOffers {
   }
 
   def registerOffer(
-      access_token: String,
-      offer: OfferRegistration
-    )(implicit ec: ExecutionContext): Future[Offer] = {
+    access_token: String,
+    offer: OfferRegistration)(implicit ec: ExecutionContext): Future[Offer] = {
     logger.debug(s"Register new offer with $dexAddress")
 
     val request: WSRequest = ws
@@ -72,11 +71,11 @@ trait DexOffers {
       response.status match {
         case CREATED =>
           val jsResponse = response.json.validate[Offer] recover {
-                case e =>
-                  val message = s"Error parsing offer: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing offer: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case UNAUTHORIZED =>
@@ -95,9 +94,8 @@ trait DexOffers {
   }
 
   def offerClaims(
-      access_token: String,
-      offerId: String
-    )(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
+    access_token: String,
+    offerId: String)(implicit ec: ExecutionContext): Future[OfferClaimsInfo] = {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
@@ -110,11 +108,11 @@ trait DexOffers {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[OfferClaimsInfo] recover {
-                case e =>
-                  val message = s"Error parsing successful offer claims info response: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing successful offer claims info response: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case UNAUTHORIZED =>
@@ -134,10 +132,9 @@ trait DexOffers {
   }
 
   def registerOfferClaim(
-      access_token: String,
-      offerId: String,
-      hat: String
-    )(implicit ec: ExecutionContext): Future[OfferClaimSummary] = {
+    access_token: String,
+    offerId: String,
+    hat: String)(implicit ec: ExecutionContext): Future[OfferClaimSummary] = {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
@@ -151,11 +148,11 @@ trait DexOffers {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[OfferClaimSummary] recover {
-                case e =>
-                  val message = s"Error parsing successful offer $offerId claim by $hat response: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing successful offer $offerId claim by $hat response: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case UNAUTHORIZED =>
@@ -169,12 +166,12 @@ trait DexOffers {
           throw ForbiddenActionException(message)
         case NOT_FOUND =>
           val message = (response.json \ "message").asOpt[String].getOrElse("") +
-                (response.json \ "cause").asOpt[String].map(c => s": $c")
+            (response.json \ "cause").asOpt[String].map(c => s": $c")
           logger.error(message)
           throw DetailsNotFoundException(message)
         case BAD_REQUEST =>
           val message = (response.json \ "message").asOpt[String].getOrElse("") +
-                (response.json \ "cause").asOpt[String].map(c => s": $c")
+            (response.json \ "cause").asOpt[String].map(c => s": $c")
           logger.error(message)
           throw BadRequestException(message)
         case _ =>
@@ -186,10 +183,9 @@ trait DexOffers {
   }
 
   def updateOfferStatus(
-      access_token: String,
-      offerId: String,
-      status: String
-    )(implicit ec: ExecutionContext): Future[Offer] = {
+    access_token: String,
+    offerId: String,
+    status: String)(implicit ec: ExecutionContext): Future[Offer] = {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
@@ -203,11 +199,11 @@ trait DexOffers {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[Offer] recover {
-                case e =>
-                  val message = s"Error parsing successful offer $offerId status update response: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing successful offer $offerId status update response: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case UNAUTHORIZED =>
@@ -220,12 +216,12 @@ trait DexOffers {
           throw ForbiddenActionException(message)
         case NOT_FOUND =>
           val message = (response.json \ "message").asOpt[String].getOrElse("") +
-                (response.json \ "cause").asOpt[String].map(c => s": $c")
+            (response.json \ "cause").asOpt[String].map(c => s": $c")
           logger.error(message)
           throw DetailsNotFoundException(message)
         case BAD_REQUEST =>
           val message = (response.json \ "message").asOpt[String].getOrElse("") +
-                (response.json \ "cause").asOpt[String].map(c => s": $c")
+            (response.json \ "cause").asOpt[String].map(c => s": $c")
           logger.error(message)
           throw BadRequestException(message)
         case _ =>

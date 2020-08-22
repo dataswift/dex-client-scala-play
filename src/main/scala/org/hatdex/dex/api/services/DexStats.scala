@@ -27,9 +27,8 @@ trait DexStats {
   val dexAddress: String
 
   def postStats(
-      access_token: String,
-      stats: Seq[DataStats]
-    )(implicit ec: ExecutionContext): Future[Unit] = {
+    access_token: String,
+    stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/stats/report")
       .withVirtualHost(dexAddress)

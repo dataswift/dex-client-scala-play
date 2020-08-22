@@ -10,7 +10,6 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.12")
 // Code Quality
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
 //addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.1.0")
-addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.1")
 
 // web plugins
 addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.3")
@@ -24,5 +23,10 @@ addSbtPlugin("ohnosequences" % "sbt-s3-resolver" % "0.19.0")
 
 resolvers += "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com"
 resolvers += "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
+
+// ScalaFMT 
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.3.4")
 addSbtPlugin("io.dataswift" % "sbt-scalafmt-common" % "0.1.1")
+
+// ScalaFix
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.19")

@@ -12,19 +12,20 @@ package org.hatdex.dex.api.services
 import javax.inject.Inject
 
 import play.api.libs.ws.WSClient
+import play.api.Logger
 
 class DexClient(
     val ws: WSClient,
     val dexAddress: String,
     override val schema: String)
-    extends DexOffers
-    with DexNotices
-    with DexDataPlugs
-    with DexStats {
+  extends DexOffers
+  with DexNotices
+  with DexDataPlugs
+  with DexStats {
 
   @Inject def this(
-      ws: WSClient,
-      dexAddress: String) = this(ws, dexAddress, "https://")
+    ws: WSClient,
+    dexAddress: String) = this(ws, dexAddress, "https://")
 
-  val logger = play.api.Logger(this.getClass)
+  val logger: Logger = play.api.Logger(this.getClass)
 }

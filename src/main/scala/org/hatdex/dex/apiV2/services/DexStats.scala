@@ -19,6 +19,7 @@ import play.api.libs.json.Json
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
+import play.api.libs.json.Format
 
 trait DexStats {
 
@@ -28,13 +29,12 @@ trait DexStats {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  implicit protected val dataStatsFormat          = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
-  implicit protected val namespaceStructureFormat = DexJsonFormats.namespaceStructureFormat
+  implicit protected val dataStatsFormat: Format[DataStats] = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+  implicit protected val namespaceStructureFormat: Format[NamespaceStructure] = DexJsonFormats.namespaceStructureFormat
 
   def postStats(
-      access_token: String,
-      stats: Seq[DataStats]
-    )(implicit ec: ExecutionContext): Future[Unit] = {
+    access_token: String,
+    stats: Seq[DataStats])(implicit ec: ExecutionContext): Future[Unit] = {
     val request: WSRequest = ws
       .url(s"$schema$dexAddress/stats/report")
       .withVirtualHost(dexAddress)
@@ -63,11 +63,11 @@ trait DexStats {
       response.status match {
         case OK =>
           val jsResponse = response.json.validate[Seq[NamespaceStructure]] recover {
-                case e =>
-                  val message = s"Error parsing namespace structures: $e"
-                  logger.error(message)
-                  throw DataFormatException(message)
-              }
+            case e =>
+              val message = s"Error parsing namespace structures: $e"
+              logger.error(message)
+              throw DataFormatException(message)
+          }
           // Convert to OfferClaimsInfo - if validation has failed, it will have thrown an error already
           jsResponse.get
         case _ =>

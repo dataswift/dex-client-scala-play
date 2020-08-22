@@ -11,6 +11,7 @@ package org.hatdex.dex.api.models
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
+import play.api.libs.json.{ OWrites, Reads }
 
 case class NoticeTarget(
     withAnyRole: Option[Seq[String]],
@@ -19,8 +20,8 @@ case class NoticeTarget(
     withHatAddress: Option[Seq[String]])
 
 object NoticeTarget {
-  implicit val noticeTargetJsonReads  = Json.reads[NoticeTarget]
-  implicit val noticeTargetJsonWrites = Json.writes[NoticeTarget]
+  implicit val noticeTargetJsonReads: Reads[NoticeTarget] = Json.reads[NoticeTarget]
+  implicit val noticeTargetJsonWrites: OWrites[NoticeTarget] = Json.writes[NoticeTarget]
 }
 
 case class Notice(
