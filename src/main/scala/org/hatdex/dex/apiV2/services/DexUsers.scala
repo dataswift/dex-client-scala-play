@@ -56,7 +56,7 @@ trait DexUsers {
       .withRequestTimeout(2500.millis)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
-    val futureResponse: Future[WSResponse] = request.get
+    val futureResponse: Future[WSResponse] = request.get()
     futureResponse.map { response =>
       logger.debug(s"Registering user's consent to TOS: $response")
       response.status match {
