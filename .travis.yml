@@ -3,6 +3,7 @@ dist: trusty
 sudo: false
 scala:
 - 2.13.3
+- 2.12.12
 jdk:
 - openjdk8
 cache:
@@ -37,5 +38,5 @@ after_success:
 deploy:
 - provider: script
   script:
-  - sbt publish
+  - sbt +publish
   skip_cleanup: true

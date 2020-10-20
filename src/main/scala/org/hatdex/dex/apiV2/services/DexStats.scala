@@ -29,7 +29,7 @@ trait DexStats {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  implicit protected val dataStatsFormat: Format[DataStats]          = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+  implicit protected val dataStatsFormat: Format[DataStats]                   = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
   implicit protected val namespaceStructureFormat: Format[NamespaceStructure] = DexJsonFormats.namespaceStructureFormat
 
   def postStats(

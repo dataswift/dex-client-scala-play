@@ -20,7 +20,7 @@ case class NoticeTarget(
     withHatAddress: Option[Seq[String]])
 
 object NoticeTarget {
-  implicit val noticeTargetJsonReads: Reads[NoticeTarget]  = Json.reads[NoticeTarget]
+  implicit val noticeTargetJsonReads: Reads[NoticeTarget]    = Json.reads[NoticeTarget]
   implicit val noticeTargetJsonWrites: OWrites[NoticeTarget] = Json.writes[NoticeTarget]
 }
 

@@ -16,10 +16,10 @@ import play.api.libs.json._
 
 trait DexJsonFormats extends DataDebitFormats with RichDataJsonFormats {
 
-  implicit val offervHatFormat: OFormat[OfferHat]            = Json.format[OfferHat]
-  implicit val offervClaimFormat: OFormat[OfferClaimSummary]          = Json.format[OfferClaimSummary]
+  implicit val offervHatFormat: OFormat[OfferHat]                              = Json.format[OfferHat]
+  implicit val offervClaimFormat: OFormat[OfferClaimSummary]                   = Json.format[OfferClaimSummary]
   implicit val offervHatCredentialsFormat: OFormat[OfferHatCredentialsSummary] = Json.format[OfferHatCredentialsSummary]
-  implicit val offervClaimsInfoFormat: OFormat[OfferClaimsInfo]     = Json.format[OfferClaimsInfo]
+  implicit val offervClaimsInfoFormat: OFormat[OfferClaimsInfo]                = Json.format[OfferClaimsInfo]
 
   implicit val offerRegistrationFormat: Format[OfferRegistration] = Json.format[OfferRegistration]
   implicit val offerFormat: Format[Offer]                         = Json.format[Offer]

@@ -17,14 +17,14 @@ trait DexJsonFormats extends HatJsonFormats {
   import play.api.libs.json.JodaWrites._
   import play.api.libs.json.JodaReads._
 
-  implicit val offerHatFormat: OFormat[OfferHat]            = Json.format[OfferHat]
-  implicit val offerclaimFormat: OFormat[OfferClaim]          = Json.format[OfferClaim]
+  implicit val offerHatFormat: OFormat[OfferHat]                       = Json.format[OfferHat]
+  implicit val offerclaimFormat: OFormat[OfferClaim]                   = Json.format[OfferClaim]
   implicit val offerHatCredentialsFormat: OFormat[OfferHatCredentials] = Json.format[OfferHatCredentials]
-  implicit val offerClaimsInfoFormat: OFormat[OfferClaimsInfo]     = Json.format[OfferClaimsInfo]
+  implicit val offerClaimsInfoFormat: OFormat[OfferClaimsInfo]         = Json.format[OfferClaimsInfo]
 
-  implicit val noticeReads: Reads[Notice]  = Json.reads[Notice]
+  implicit val noticeReads: Reads[Notice]    = Json.reads[Notice]
   implicit val noticeWrites: OWrites[Notice] = Json.writes[Notice]
-  implicit val noticeFormat: Format[Notice] = Format(noticeReads, noticeWrites)
+  implicit val noticeFormat: Format[Notice]  = Format(noticeReads, noticeWrites)
 }
 
 object DexJsonFormats extends DexJsonFormats
