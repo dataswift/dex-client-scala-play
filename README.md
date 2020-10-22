@@ -44,4 +44,3 @@ Here `accessToken` is an access token you have received from DEX for your accoun
 * Tests require a running Dex. Todo this run the dex test script from the dex project `./end_to_end_test/test.sh -s`
 * Currently Integ tests are only able to work against unauthorized endpoints
 
-
