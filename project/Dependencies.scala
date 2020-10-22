@@ -40,7 +40,7 @@ object Dependencies {
     }
 
     object HATDeX {
-      private val version = "2.6.17"
+      private val version = "2.6.18"
       val hatClient       = "org.hatdex" %% "hat-client-scala-play" % version
     }
 
