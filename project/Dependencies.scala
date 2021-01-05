@@ -39,9 +39,15 @@ object Dependencies {
       val mock            = "org.specs2" %% "specs2-mock"          % version
     }
 
-    object HATDeX {
-      private val version = "2.6.18"
-      val hatClient       = "org.hatdex" %% "hat-client-scala-play" % version
+    object DataswiftModels {
+
+      private val version =
+        "1.0.0-SNAPSHOT"
+      val hat     = "io.dataswift.models" %% "hat"      % version
+      val hatPlay = "io.dataswift.models" %% "hat-play" % version
+      val dex     = "io.dataswift.models" %% "dex"      % version
+      val dexPlay = "io.dataswift.models" %% "dex-play" % version
+
     }
 
     object Test {

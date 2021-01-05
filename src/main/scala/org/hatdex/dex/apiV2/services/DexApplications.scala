@@ -17,7 +17,7 @@ import org.hatdex.dex.apiV2.services.Errors.{
   ForbiddenActionException,
   UnauthorizedActionException
 }
-import org.hatdex.hat.api.models.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
+import io.dataswift.models.hat.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
@@ -34,11 +34,11 @@ trait DexApplications {
   protected val apiVersion: String
 
   implicit protected val applicationFormat: Format[Application] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationFormat
+    io.dataswift.models.hat.json.ApplicationJsonProtocol.applicationFormat
   implicit protected val applicationHistoryFormat: Format[ApplicationHistory] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationHistoryFormat
+    io.dataswift.models.hat.json.ApplicationJsonProtocol.applicationHistoryFormat
   implicit protected val developerFormat: Format[ApplicationDeveloper] =
-    org.hatdex.hat.api.json.ApplicationJsonProtocol.applicationDeveloperFormat
+    io.dataswift.models.hat.json.ApplicationJsonProtocol.applicationDeveloperFormat
 
   def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
     val request: WSRequest = ws

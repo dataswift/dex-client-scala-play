@@ -19,8 +19,9 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.2")
 addSbtPlugin("org.irundaia.sbt" % "sbt-sassify" % "1.4.12")
 
 // S3 based SBT resolver
-resolvers += Resolver.jcenterRepo
-addSbtPlugin("ohnosequences" % "sbt-s3-resolver" % "0.19.0")
+
+resolvers += "FrugalMechanic Snapshots" at "s3://maven.frugalmechanic.com/snapshots"
+addSbtPlugin("com.frugalmechanic" % "fm-sbt-s3-resolver" % "0.19.0")
 
 resolvers += "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com"
 resolvers += "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"

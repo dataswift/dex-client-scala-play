@@ -2,7 +2,7 @@ package org.hatdex.dex.apiV2.models
 
 import java.util.UUID
 
-import org.hatdex.hat.api.models.EndpointDataBundle
+import io.dataswift.models.hat.EndpointDataBundle
 import org.joda.time.{ DateTime, Duration }
 
 case class Offer(

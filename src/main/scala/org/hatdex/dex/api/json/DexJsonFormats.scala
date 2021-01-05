@@ -9,13 +9,11 @@
 
 package org.hatdex.dex.api.json
 
-import org.hatdex.hat.api.json.HatJsonFormats
+import io.dataswift.models.hat.json.HatJsonFormats
 import org.hatdex.dex.api.models._
 import play.api.libs.json._
 
 trait DexJsonFormats extends HatJsonFormats {
-  import play.api.libs.json.JodaWrites._
-  import play.api.libs.json.JodaReads._
 
   implicit val offerHatFormat: OFormat[OfferHat]                       = Json.format[OfferHat]
   implicit val offerclaimFormat: OFormat[OfferClaim]                   = Json.format[OfferClaim]
