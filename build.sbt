@@ -26,7 +26,7 @@ publishMavenStyle := true
 publishTo := {
   val prefix = if (isSnapshot.value) "snapshots" else "releases"
   Some(
-    "Models" + prefix at "s3://library-artifacts-" + prefix + ".hubofallthings.com"
+    s"Models$prefix" at s"s3://library-artifacts-$prefix.hubofallthings.com"
   )
 }
 
