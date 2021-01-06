@@ -9,7 +9,7 @@
 
 package org.hatdex.dex.apiV2.json
 
-import org.hatdex.hat.api.json.{ DataDebitFormats, RichDataJsonFormats }
+import io.dataswift.models.hat.json.{ DataDebitFormats, RichDataJsonFormats }
 import org.hatdex.dex.apiV2.models._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._

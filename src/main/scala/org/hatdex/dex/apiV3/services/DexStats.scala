@@ -12,7 +12,7 @@ package org.hatdex.dex.apiV3.services
 import org.hatdex.dex.apiV3.json.DexJsonFormats
 import org.hatdex.dex.apiV3.models.NamespaceStructure
 import org.hatdex.dex.apiV3.services.Errors.{ ApiException, DataFormatException }
-import org.hatdex.hat.api.models.DataStats
+import io.dataswift.models.hat.DataStats
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -29,7 +29,7 @@ trait DexStats {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  implicit protected val dataStatsFormat: Format[DataStats]                   = org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+  implicit protected val dataStatsFormat: Format[DataStats]                   = io.dataswift.models.hat.json.DataStatsFormat.dataStatsFormat
   implicit protected val namespaceStructureFormat: Format[NamespaceStructure] = DexJsonFormats.namespaceStructureFormat
 
   def postStats(

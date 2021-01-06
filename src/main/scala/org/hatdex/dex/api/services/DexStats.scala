@@ -9,7 +9,7 @@
 
 package org.hatdex.dex.api.services
 
-import org.hatdex.hat.api.models.DataStats
+import io.dataswift.models.hat.DataStats
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -19,7 +19,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexStats {
 
-  import org.hatdex.hat.api.json.DataStatsFormat.dataStatsFormat
+  import io.dataswift.models.hat.json.DataStatsFormat.dataStatsFormat
 
   val logger: Logger
   val ws: WSClient

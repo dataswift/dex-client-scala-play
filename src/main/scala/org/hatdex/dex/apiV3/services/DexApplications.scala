@@ -17,7 +17,7 @@ import org.hatdex.dex.apiV2.services.Errors.{
   ForbiddenActionException,
   UnauthorizedActionException
 }
-import org.hatdex.hat.api.models.applications.{
+import io.dataswift.models.hat.applications.{
   Application,
   ApplicationDeveloper,
   ApplicationHistory,
@@ -33,7 +33,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexApplications {
 
-  import org.hatdex.hat.api.json.ApplicationJsonProtocol._
+  import io.dataswift.models.hat.json.ApplicationJsonProtocol._
 
   protected val logger: Logger
   protected val ws: WSClient
