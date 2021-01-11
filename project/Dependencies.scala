@@ -28,8 +28,8 @@ object Dependencies {
       val version  = play.core.PlayVersion.current
       val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
       val cache    = "com.typesafe.play" %% "play-cache"     % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+      val json     = "com.typesafe.play" %% "play-json"      % "2.9.2"
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.2"
     }
 
     object Specs2 {
