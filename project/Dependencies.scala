@@ -51,7 +51,7 @@ object Dependencies {
     }
 
     object Test {
-      val scalacheck    = "org.scalacheck"    %% "scalacheck"             % "1.14.3"  % "it,test"
+      val scalacheck    = "org.scalacheck"    %% "scalacheck"             % "1.15.2"  % "it,test"
       val scalatest     = "org.scalatest"     %% "scalatest"              % "3.2.0"   % "it,test"
       val funsuite      = "org.scalatest"     %% "scalatest-funsuite"     % "3.2.0"   % "it,test"
       val testpluscheck = "org.scalatestplus" %% "scalacheck-1-14"        % "3.2.0.0" % "it,test"
