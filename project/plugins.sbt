@@ -25,3 +25,5 @@ resolvers += "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.3.4")
 addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.19")
 addSbtPlugin("io.dataswift" % "sbt-scalafmt-common" % "0.1.1-SNAPSHOT")
+
+addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")
