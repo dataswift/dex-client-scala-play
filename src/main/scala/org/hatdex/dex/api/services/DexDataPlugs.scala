@@ -11,11 +11,11 @@ package org.hatdex.dex.api.services
 
 import java.util.UUID
 
+import scala.concurrent.{ ExecutionContext, Future }
+
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexDataPlugs {
   val logger: Logger

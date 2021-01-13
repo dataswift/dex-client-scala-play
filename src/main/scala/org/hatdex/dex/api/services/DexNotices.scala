@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.api.services
 
-import io.dataswift.models.dex.play.DexJsonFormats
+import scala.concurrent.{ ExecutionContext, Future }
+
 import io.dataswift.models.dex.Notice
+import io.dataswift.models.dex.json.DexJsonFormats
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexNotices {
   val logger: Logger

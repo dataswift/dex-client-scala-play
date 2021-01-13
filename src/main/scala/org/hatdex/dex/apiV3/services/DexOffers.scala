@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.apiV3.services
 
+import scala.concurrent.{ ExecutionContext, Future }
+
 import io.dataswift.models.dex.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
 import org.hatdex.dex.apiV3.services.Errors._
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexOffers {
   protected val logger: Logger
@@ -25,7 +25,7 @@ trait DexOffers {
   protected val dexAddress: String
   protected val apiVersion: String
 
-  import io.dataswift.models.dex.play.DexJsonFormats._
+  import io.dataswift.models.dex.json.DexJsonFormats._
 
   def listOffers()(implicit ec: ExecutionContext): Future[Seq[Offer]] = {
     logger.debug(s"Get DEX data offers from $dexAddress")

@@ -12,8 +12,8 @@ package org.hatdex.dex.apiV3.services
 import javax.inject.Inject
 
 import org.hatdex.dex.api.services.{ DexDataPlugs, DexNotices }
-import play.api.libs.ws.WSClient
 import play.api.Logger
+import play.api.libs.ws.WSClient
 
 class DexClient(
     val ws: WSClient,
