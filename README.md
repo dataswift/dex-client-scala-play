@@ -1,7 +1,5 @@
 # Scala API wrappers for the HAT DEX
 
-Current Version: 2.4.1
-
 This repository provides convenience wrappers around HAT DEX HTTP APIs and contains 
 the most up-to-date set of typesafe DEX Data Models and Play-JSON based
 serializers and deserializers for them.
@@ -15,7 +13,7 @@ The library artifacts are hosted on AWS S3:
     resolvers += "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
     // Or for SNAPSHOTS:
     // "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com"
-    libraryDependencies ++= "org.hatdex" %% "dex-client-scala-play" % 2.4.1
+    libraryDependencies ++= "org.hatdex" %% "dex-client-scala-play" % X.Y.Z
 
 
 To use the client, it is sufficient to create a new one with minimal configuration:
