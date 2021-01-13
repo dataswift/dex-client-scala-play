@@ -4,6 +4,8 @@ configs(IntegrationTest)
 
 Defaults.itSettings
 
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.4.4"
+
 libraryDependencies ++= Seq(
   Library.Play.ws,
   Library.Play.cache,
@@ -14,6 +16,8 @@ libraryDependencies ++= Seq(
   Library.Specs2.core,
   Library.DataswiftModels.hat,
   Library.DataswiftModels.hatPlay,
+  Library.DataswiftModels.dex,
+  Library.DataswiftModels.dexPlay,
   Library.Test.scalacheck,
   Library.Test.scalatest,
   Library.Test.funsuite,

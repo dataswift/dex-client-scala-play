@@ -9,8 +9,8 @@
 
 package org.hatdex.dex.apiV3.services
 
-import org.hatdex.dex.apiV3.json.DexJsonFormats
-import org.hatdex.dex.apiV3.models.NamespaceStructure
+import io.dataswift.models.dex.NamespaceStructure
+import io.dataswift.models.dex.play.DexJsonFormats
 import org.hatdex.dex.apiV3.services.Errors.{ ApiException, DataFormatException }
 import io.dataswift.models.hat.DataStats
 import play.api.Logger

@@ -9,8 +9,8 @@
 
 package org.hatdex.dex.api.services
 
-import org.hatdex.dex.api.json.DexJsonFormats
-import org.hatdex.dex.api.models.Notice
+import io.dataswift.models.dex.play.DexJsonFormats
+import io.dataswift.models.dex.Notice
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -24,7 +24,7 @@ trait DexNotices {
   val schema: String
   val dexAddress: String
 
-  import DexJsonFormats.noticeFormat
+  import DexJsonFormats._
 
   def postNotice(
       access_token: String,
