@@ -5,7 +5,7 @@ on:
   push:
     branches-ignore:
       - main
-
+    
 jobs:
   build:
     name: Build
@@ -24,11 +24,14 @@ jobs:
           java-package: jdk
           architecture: x64
 
+      - name: Clean
+        run: sbt clean
+
       - name: Compile
-        run: sbt compile
+        run: sbt +compile
 
       - name: Test - Compile 
-        run: sbt test:compile
+        run: sbt +test:compile
 
-      - name: Test - Coverage
-        run: sbt coverage test
+      - name: Test
+        run: sbt +test
