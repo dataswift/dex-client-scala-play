@@ -17,7 +17,7 @@ import io.dataswift.models.hat.DataStats
 import org.hatdex.dex.apiV3.services.Errors.{ ApiException, DataFormatException }
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{ Format, Json }
 import play.api.libs.ws._
 
 trait DexStats {
