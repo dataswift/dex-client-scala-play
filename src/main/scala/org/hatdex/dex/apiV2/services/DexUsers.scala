@@ -9,14 +9,14 @@
 
 package org.hatdex.dex.apiV2.services
 
+import scala.concurrent.duration._
+import scala.concurrent.{ ExecutionContext, Future }
+
 import akka.Done
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
-
-import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexUsers {
 

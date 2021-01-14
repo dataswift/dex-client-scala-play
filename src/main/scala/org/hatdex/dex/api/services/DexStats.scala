@@ -9,13 +9,13 @@
 
 package org.hatdex.dex.api.services
 
+import scala.concurrent.{ ExecutionContext, Future }
+
 import io.dataswift.models.hat.DataStats
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.Json
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexStats {
 

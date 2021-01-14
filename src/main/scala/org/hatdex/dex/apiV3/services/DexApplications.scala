@@ -9,14 +9,9 @@
 
 package org.hatdex.dex.apiV3.services
 
+import scala.concurrent.{ ExecutionContext, Future }
+
 import akka.Done
-import org.hatdex.dex.apiV2.services.Errors.{
-  ApiException,
-  DataFormatException,
-  DetailsNotFoundException,
-  ForbiddenActionException,
-  UnauthorizedActionException
-}
 import io.dataswift.models.hat.applications.{
   Application,
   ApplicationDeveloper,
@@ -24,12 +19,17 @@ import io.dataswift.models.hat.applications.{
   ApplicationKind,
   PayloadWrapper
 }
+import org.hatdex.dex.apiV2.services.Errors.{
+  ApiException,
+  DataFormatException,
+  DetailsNotFoundException,
+  ForbiddenActionException,
+  UnauthorizedActionException
+}
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexApplications {
 
