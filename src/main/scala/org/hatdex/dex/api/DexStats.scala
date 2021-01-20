@@ -1,15 +1,12 @@
 package org.hatdex.dex.api
 
-import scala.concurrent.ExecutionContext
-import play.api.libs.ws.WSResponse
-import io.dataswift.models.hat.DataStats
-import play.api.libs.json.Json
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.Future
-import play.api.http.Status.OK
-import play.api.libs.ws.WSClient
-import play.api.libs.ws.WSRequest
+import io.dataswift.models.hat.DataStats
 import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.json.Json
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexStats {
 

@@ -1,15 +1,12 @@
 package org.hatdex.dex.api
 
-import play.api.http.Status.OK
-import play.api.libs.ws.WSResponse
-
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext
-import play.api.libs.ws.WSClient
-import play.api.libs.ws.WSRequest
 import java.util.UUID
 
+import scala.concurrent.{ExecutionContext, Future}
+
 import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexDataPlugs {
   val logger: Logger

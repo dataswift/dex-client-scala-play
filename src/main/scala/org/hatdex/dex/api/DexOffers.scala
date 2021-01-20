@@ -1,16 +1,13 @@
 package org.hatdex.dex.api
 
-import io.dataswift.models.dex.OfferClaimsInfo
-import play.api.libs.ws.WSRequest
-import play.api.libs.ws.WSResponse
-import play.api.Logger
 import java.util.UUID
 
-import scala.concurrent.Future
-import play.api.libs.ws.WSClient
-import play.api.http.Status.OK
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.ExecutionContext
+import io.dataswift.models.dex.OfferClaimsInfo
+import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexOffers {
   val logger: Logger

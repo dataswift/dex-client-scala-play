@@ -1,32 +1,14 @@
 package org.hatdex.dex.apiV3
 
-import play.api.libs.ws.WSClient
-import play.api.http.Status.NOT_FOUND
-import io.dataswift.models.hat.applications.ApplicationDeveloper
-import org.hatdex.dex.apiV2.Errors.ForbiddenActionException
-import play.api.libs.json.JsSuccess
-import io.dataswift.models.hat.applications.ApplicationKind
-import org.hatdex.dex.apiV2.Errors.ApiException
-import io.dataswift.models.hat.applications.PayloadWrapper
-import play.api.libs.ws.WSRequest
-import org.hatdex.dex.apiV2.Errors.DetailsNotFoundException
-import io.dataswift.models.hat.applications.ApplicationHistory
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.Future
-import play.api.libs.json.Json
-import play.api.libs.ws.WSResponse
 import akka.Done
+import io.dataswift.models.hat.applications.{Application, ApplicationDeveloper, ApplicationHistory, ApplicationKind, PayloadWrapper}
+import org.hatdex.dex.apiV2.Errors.{ApiException, DataFormatException, DetailsNotFoundException, ForbiddenActionException, UnauthorizedActionException}
 import play.api.Logger
-import io.dataswift.models.hat.applications.Application
-
-import scala.concurrent.ExecutionContext
-import play.api.http.Status.OK
-import org.hatdex.dex.apiV2.Errors.UnauthorizedActionException
-import play.api.http.Status.CREATED
-import play.api.http.Status.UNAUTHORIZED
-import play.api.libs.json.JsError
-import org.hatdex.dex.apiV2.Errors.DataFormatException
-import play.api.http.Status.FORBIDDEN
+import play.api.http.Status.{CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED}
+import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexApplications {
 

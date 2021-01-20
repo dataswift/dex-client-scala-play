@@ -1,17 +1,13 @@
 package org.hatdex.dex.api
 
-import play.api.libs.ws.WSClient
-import play.api.libs.ws.WSRequest
-import play.api.http.Status.OK
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.ExecutionContext
-import io.dataswift.models.dex.json.DexJsonFormats
-import play.api.libs.ws.WSResponse
 import io.dataswift.models.dex.Notice
-
-import scala.concurrent.Future
-import play.api.libs.json.Json
+import io.dataswift.models.dex.json.DexJsonFormats
 import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.json.Json
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexNotices {
   val logger: Logger

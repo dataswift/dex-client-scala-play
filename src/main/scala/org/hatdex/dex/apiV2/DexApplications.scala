@@ -1,26 +1,14 @@
 package org.hatdex.dex.apiV2
 
-import play.api.http.Status.NOT_FOUND
-import play.api.libs.ws.WSClient
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.Future
-import play.api.libs.json.JsSuccess
-import play.api.http.Status.FORBIDDEN
-import io.dataswift.models.hat.applications.ApplicationHistory
-import io.dataswift.models.hat.applications.ApplicationDeveloper
-import play.api.libs.ws.WSRequest
-import play.api.libs.ws.WSResponse
-import play.api.http.Status.CREATED
-import play.api.http.Status.UNAUTHORIZED
-import play.api.libs.json.Json
-import play.api.Logger
 import akka.Done
-import io.dataswift.models.hat.applications.Application
-
-import scala.concurrent.ExecutionContext
-import play.api.http.Status.OK
-import play.api.libs.json.Format
-import play.api.libs.json.JsError
+import io.dataswift.models.hat.applications.{Application, ApplicationDeveloper, ApplicationHistory}
+import org.hatdex.dex.apiV2.Errors._
+import play.api.Logger
+import play.api.http.Status.{CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED}
+import play.api.libs.json.{Format, JsError, JsSuccess, Json}
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexApplications {
 

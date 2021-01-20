@@ -10,8 +10,8 @@
 package org.hatdex.dex.apiV2
 
 import javax.inject.Inject
-import org.hatdex.dex.api.DexDataPlugs
-import org.hatdex.dex.api.DexNotices
+
+import org.hatdex.dex.api.{DexDataPlugs, DexNotices}
 import play.api.Logger
 import play.api.libs.ws.WSClient
 

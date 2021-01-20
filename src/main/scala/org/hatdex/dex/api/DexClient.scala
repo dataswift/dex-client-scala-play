@@ -10,6 +10,7 @@
 package org.hatdex.dex.api
 
 import javax.inject.Inject
+
 import play.api.Logger
 import play.api.libs.ws.WSClient
 

@@ -1,15 +1,13 @@
 package org.hatdex.dex.apiV3
 
-import scala.concurrent.ExecutionContext
-import play.api.Logger
-import akka.Done
-import play.api.libs.ws.WSRequest
-import play.api.libs.ws.WSResponse
-import play.api.libs.json.Json
-import play.api.libs.ws.WSClient
+import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
-import scala.concurrent.Future
+import akka.Done
+import play.api.Logger
 import play.api.http.Status.OK
+import play.api.libs.json.Json
+import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
 
 trait DexUsers {
 
