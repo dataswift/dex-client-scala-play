@@ -1,4 +1,4 @@
-package org.hatdex.dex.apiV3.services
+package org.hatdex.dex.apiV3
 
 object Errors {
   class ApiException(
