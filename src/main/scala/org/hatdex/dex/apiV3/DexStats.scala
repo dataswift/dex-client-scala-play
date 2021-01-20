@@ -1,24 +1,19 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
+package org.hatdex.dex.apiV3
 
-package org.hatdex.dex.apiV2.services
-
-import scala.concurrent.{ ExecutionContext, Future }
-
-import io.dataswift.models.dex.NamespaceStructure
-import io.dataswift.models.dex.json.DexJsonFormats
 import io.dataswift.models.hat.DataStats
-import org.hatdex.dex.apiV2.services.Errors.{ ApiException, DataFormatException }
+import play.api.libs.json.Format
+import play.api.libs.ws.WSClient
+import play.api.libs.json.Json
+import io.dataswift.models.dex.json.DexJsonFormats
+import play.api.http.Status.OK
 import play.api.Logger
-import play.api.http.Status._
-import play.api.libs.json.{ Format, Json }
-import play.api.libs.ws._
+
+import scala.concurrent.Future
+import play.api.libs.ws.WSResponse
+import play.api.libs.ws.WSRequest
+
+import scala.concurrent.ExecutionContext
+import io.dataswift.models.dex.NamespaceStructure
 
 trait DexStats {
 
@@ -30,7 +25,6 @@ trait DexStats {
 
   implicit protected val dataStatsFormat: Format[DataStats] =
     io.dataswift.models.hat.json.DataStatsFormat.dataStatsFormat
-
   implicit protected val namespaceStructureFormat: Format[NamespaceStructure] = DexJsonFormats.namespaceStructureFormat
 
   def postStats(

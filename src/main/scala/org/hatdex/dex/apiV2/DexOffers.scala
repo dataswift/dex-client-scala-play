@@ -1,22 +1,24 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
+package org.hatdex.dex.apiV2
 
-package org.hatdex.dex.apiV2.services
-
-import scala.concurrent.{ ExecutionContext, Future }
-
-import io.dataswift.models.dex.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
-import org.hatdex.dex.apiV2.services.Errors._
-import play.api.Logger
-import play.api.http.Status._
+import play.api.http.Status.OK
+import play.api.http.Status.FORBIDDEN
 import play.api.libs.json.Json
-import play.api.libs.ws._
+import play.api.http.Status.CREATED
+import io.dataswift.models.dex.OfferClaimSummary
+import io.dataswift.models.dex.Offer
+import play.api.libs.ws.WSClient
+import io.dataswift.models.dex.OfferClaimsInfo
+import play.api.libs.ws.WSRequest
+import io.dataswift.models.dex.OfferRegistration
+
+import scala.concurrent.ExecutionContext
+import play.api.http.Status.BAD_REQUEST
+import play.api.libs.ws.WSResponse
+import play.api.http.Status.UNAUTHORIZED
+import play.api.http.Status.NOT_FOUND
+
+import scala.concurrent.Future
+import play.api.Logger
 
 trait DexOffers {
   protected val logger: Logger
