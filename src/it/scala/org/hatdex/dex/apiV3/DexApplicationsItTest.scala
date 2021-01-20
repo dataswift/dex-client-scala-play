@@ -1,7 +1,7 @@
-package org.hatdex.dex.apiV3.services
+package org.hatdex.dex.apiV3
+
 import org.hatdex.dex.apiV2.Errors.DetailsNotFoundException
 import io.dataswift.models.hat.applications.ApplicationKind
-import org.hatdex.dex.apiV3.DexClient
 import org.scalatest.funsuite.AsyncFunSuite
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
