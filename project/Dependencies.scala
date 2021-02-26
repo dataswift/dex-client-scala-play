@@ -26,8 +26,8 @@ object Dependencies {
     object Play {
       val version  = play.core.PlayVersion.current
       val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+      val json     = "com.typesafe.play" %% "play-json"      % "2.9.2"
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.2"
     }
 
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
