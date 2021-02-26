@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
   Library.Play.ws,
   Library.Play.json,
   Library.Play.jsonJoda,
-  Library.testCommon,
+  Library.testCommon % Test,
   Library.DataswiftModels.hatPlay,
   Library.DataswiftModels.dexPlay
 )

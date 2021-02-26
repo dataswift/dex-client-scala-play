@@ -18,7 +18,6 @@ object Dependencies {
   }
 
   val resolvers = Seq(
-    "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
   )
