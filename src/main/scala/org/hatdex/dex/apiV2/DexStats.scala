@@ -1,6 +1,6 @@
 package org.hatdex.dex.apiV2
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 import io.dataswift.models.dex.NamespaceStructure
 import io.dataswift.models.dex.json.DexJsonFormats
@@ -8,8 +8,8 @@ import io.dataswift.models.hat.DataStats
 import org.hatdex.dex.apiV2.Errors._
 import play.api.Logger
 import play.api.http.Status.OK
-import play.api.libs.json.{Format, Json}
-import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
+import play.api.libs.json.{ Format, Json }
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexStats {
 
