@@ -12,21 +12,21 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala = Seq("2.13.3", "2.12.12")
+    val crossScala   = Seq("2.13.3", "2.12.12")
     val scalaVersion = crossScala.head
-    val testCommon = "0.2.3"
+    val testCommon   = "0.2.3"
   }
 
   val resolvers = Seq(
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
-    "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
+    "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
   )
 
   object Library {
     object Play {
-      val version = play.core.PlayVersion.current
-      val ws = "com.typesafe.play" %% "play-ahc-ws" % version
-      val json = "com.typesafe.play" %% "play-json" % "2.9.1"
+      val version  = play.core.PlayVersion.current
+      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
+      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
       val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
     }
 

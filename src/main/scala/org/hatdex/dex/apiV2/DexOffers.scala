@@ -1,13 +1,13 @@
 package org.hatdex.dex.apiV2
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
-import io.dataswift.models.dex.{Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration}
+import io.dataswift.models.dex.{ Offer, OfferClaimSummary, OfferClaimsInfo, OfferRegistration }
 import org.hatdex.dex.apiV2.Errors._
 import play.api.Logger
-import play.api.http.Status.{BAD_REQUEST, CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED}
+import play.api.http.Status.{ BAD_REQUEST, CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED }
 import play.api.libs.json.Json
-import play.api.libs.ws.{WSClient, WSRequest, WSResponse}
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexOffers {
   protected val logger: Logger
