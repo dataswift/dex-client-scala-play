@@ -21,10 +21,6 @@ object Dependencies {
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
-    /*
-    Resolver.file("local-environment",
-                  file(Path.userHome.absolutePath + "/.ivy2/local"))(
-      Resolver.ivyStylePatterns)*/
   )
 
   object Library {
@@ -38,14 +34,10 @@ object Dependencies {
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
 
     object DataswiftModels {
-
       private val version =
         "2.0.4"
-      val hat = "io.dataswift" %% "hat" % version
       val hatPlay = "io.dataswift" %% "hat-play" % version
-      val dex = "io.dataswift" %% "dex" % version
       val dexPlay = "io.dataswift" %% "dex-play" % version
-
     }
 
   }
