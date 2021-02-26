@@ -19,7 +19,6 @@ object BasicSettings extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       organization := "org.hatdex",
-      version := "3.0.0",
       resolvers ++= Dependencies.resolvers,
       scalaVersion := Dependencies.Versions.scalaVersion,
       crossScalaVersions := Dependencies.Versions.crossScala,
@@ -51,7 +50,6 @@ object BasicSettings extends AutoPlugin {
             "-deprecation", // Emit warning and location for usages of deprecated APIs.
             "-feature", // Emit warning and location for usages of features that should be imported explicitly.
             "-unchecked", // Enable additional warnings where generated code depends on assumptions.
-            "-Xfatal-warnings", // Fail the compilation if there are any warnings.
             "-Xlint", // Enable recommended additional warnings.
             "-Ywarn-dead-code", // Warn when dead code is identified.
             "-language:postfixOps", // Allow postfix operators

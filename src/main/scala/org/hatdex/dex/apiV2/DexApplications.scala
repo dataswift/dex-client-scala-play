@@ -1,29 +1,14 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
-
-package org.hatdex.dex.apiV2.services
-
-import akka.Done
-import org.hatdex.dex.apiV2.services.Errors.{
-  ApiException,
-  DataFormatException,
-  DetailsNotFoundException,
-  ForbiddenActionException,
-  UnauthorizedActionException
-}
-import io.dataswift.models.hat.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
-import play.api.Logger
-import play.api.http.Status._
-import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
-import play.api.libs.ws._
+package org.hatdex.dex.apiV2
 
 import scala.concurrent.{ ExecutionContext, Future }
+
+import akka.Done
+import io.dataswift.models.hat.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
+import org.hatdex.dex.apiV2.Errors._
+import play.api.Logger
+import play.api.http.Status.{ CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED }
+import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexApplications {
 

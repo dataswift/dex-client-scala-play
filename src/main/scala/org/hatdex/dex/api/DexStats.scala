@@ -1,21 +1,12 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
+package org.hatdex.dex.api
 
-package org.hatdex.dex.api.services
+import scala.concurrent.{ ExecutionContext, Future }
 
 import io.dataswift.models.hat.DataStats
 import play.api.Logger
-import play.api.http.Status._
+import play.api.http.Status.OK
 import play.api.libs.json.Json
-import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexStats {
 

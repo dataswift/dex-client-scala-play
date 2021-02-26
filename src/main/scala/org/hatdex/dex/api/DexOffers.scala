@@ -1,23 +1,13 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
-
-package org.hatdex.dex.api.services
+package org.hatdex.dex.api
 
 import java.util.UUID
 
-import org.hatdex.dex.api.json.DexJsonFormats
-import org.hatdex.dex.api.models.OfferClaimsInfo
-import play.api.Logger
-import play.api.http.Status._
-import play.api.libs.ws._
-
 import scala.concurrent.{ ExecutionContext, Future }
+
+import io.dataswift.models.dex.OfferClaimsInfo
+import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexOffers {
   val logger: Logger
@@ -25,8 +15,11 @@ trait DexOffers {
   val schema: String
   val dexAddress: String
 
-  import DexJsonFormats.offerClaimsInfoFormat
+  import io.dataswift.models.dex.json.DexJsonFormats._
 
+  @deprecated("This endpoint does not exist in dex",
+              since = "0.0.0"
+  ) //\todo remove this ? what does this affect ? is anyone using it ?
   def offerClaims(
       access_token: String,
       offerId: UUID

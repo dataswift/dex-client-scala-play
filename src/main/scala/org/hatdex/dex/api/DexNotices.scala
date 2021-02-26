@@ -1,22 +1,13 @@
-/*
- * Copyright (C) 2016 HAT Data Exchange Ltd - All Rights Reserved
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Written by Andrius Aucinas <andrius.aucinas@hatdex.org>, 2 / 2017
- *
- */
-
-package org.hatdex.dex.api.services
-
-import org.hatdex.dex.api.json.DexJsonFormats
-import org.hatdex.dex.api.models.Notice
-import play.api.Logger
-import play.api.http.Status._
-import play.api.libs.json.Json
-import play.api.libs.ws._
+package org.hatdex.dex.api
 
 import scala.concurrent.{ ExecutionContext, Future }
+
+import io.dataswift.models.dex.Notice
+import io.dataswift.models.dex.json.DexJsonFormats
+import play.api.Logger
+import play.api.http.Status.OK
+import play.api.libs.json.Json
+import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
 trait DexNotices {
   val logger: Logger
@@ -24,7 +15,7 @@ trait DexNotices {
   val schema: String
   val dexAddress: String
 
-  import DexJsonFormats.noticeFormat
+  import DexJsonFormats._
 
   def postNotice(
       access_token: String,
