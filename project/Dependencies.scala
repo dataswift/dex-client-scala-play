@@ -12,51 +12,41 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala   = Seq("2.13.3", "2.12.12")
+    val crossScala = Seq("2.13.3", "2.12.12")
     val scalaVersion = crossScala.head
+    val testCommon = "0.2.3"
   }
 
   val resolvers = Seq(
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
-    Resolver.file("local-environment", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
+    /*
+    Resolver.file("local-environment",
+                  file(Path.userHome.absolutePath + "/.ivy2/local"))(
+      Resolver.ivyStylePatterns)*/
   )
 
   object Library {
     object Play {
-      val version  = play.core.PlayVersion.current
-      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
-      val cache    = "com.typesafe.play" %% "play-cache"     % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
+      val version = play.core.PlayVersion.current
+      val ws = "com.typesafe.play" %% "play-ahc-ws" % version
+      val json = "com.typesafe.play" %% "play-json" % "2.9.1"
       val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
     }
 
-    object Specs2 {
-      private val version = "4.10.3"
-      val core            = "org.specs2" %% "specs2-core"          % version
-      val matcherExtra    = "org.specs2" %% "specs2-matcher-extra" % version
-      val mock            = "org.specs2" %% "specs2-mock"          % version
-    }
+    val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
 
     object DataswiftModels {
 
       private val version =
-        "2.0.1"
-      val hat     = "io.dataswift" %% "hat"      % version
+        "2.0.4"
+      val hat = "io.dataswift" %% "hat" % version
       val hatPlay = "io.dataswift" %% "hat-play" % version
-      val dex     = "io.dataswift" %% "dex"      % version
+      val dex = "io.dataswift" %% "dex" % version
       val dexPlay = "io.dataswift" %% "dex-play" % version
 
     }
 
-    object Test {
-      val scalacheck    = "org.scalacheck"    %% "scalacheck"             % "1.14.3"  % "it,test"
-      val scalatest     = "org.scalatest"     %% "scalatest"              % "3.2.0"   % "it,test"
-      val funsuite      = "org.scalatest"     %% "scalatest-funsuite"     % "3.2.0"   % "it,test"
-      val testpluscheck = "org.scalatestplus" %% "scalacheck-1-14"        % "3.2.0.0" % "it,test"
-      val matchers      = "org.scalatest"     %% "scalatest-mustmatchers" % "3.2.0"   % "it,test"
-      val logging       = "ch.qos.logback"     % "logback-classic"        % "1.2.3"   % "it,test"
-    }
   }
 }
