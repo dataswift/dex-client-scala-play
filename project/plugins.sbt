@@ -8,5 +8,5 @@ resolvers += "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws
 // ScalaFMT, ScalaFIX and Tools Common
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.3.4")
 addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.19")
-addSbtPlugin("io.dataswift" % "sbt-scalatools-common" % "0.1.3")
+addSbtPlugin("io.dataswift" % "sbt-scalatools-common" % "0.2.3")
 addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")
