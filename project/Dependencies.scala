@@ -12,13 +12,12 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala   = Seq("2.13.3", "2.12.12")
+    val crossScala   = Seq("2.13.5", "2.12.13")
     val scalaVersion = crossScala.head
     val testCommon   = "0.2.3"
   }
 
   val resolvers = Seq(
-    "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
   )
 
@@ -33,10 +32,9 @@ object Dependencies {
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
 
     object DataswiftModels {
-      private val version =
-        "2.0.4"
-      val hatPlay = "io.dataswift" %% "hat-play" % version
-      val dexPlay = "io.dataswift" %% "dex-play" % version
+      private val version = "2.2.0"
+      val hatPlay         = "io.dataswift" %% "hat-play" % version
+      val dexPlay         = "io.dataswift" %% "dex-play" % version
     }
 
   }
