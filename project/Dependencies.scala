@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala   = Seq("2.13.5", "2.12.13")
+    val crossScala   = Seq("2.12.13")
     val scalaVersion = crossScala.head
     val testCommon   = "0.2.3"
   }
@@ -25,14 +25,14 @@ object Dependencies {
     object Play {
       val version  = play.core.PlayVersion.current
       val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+      val json     = "com.typesafe.play" %% "play-json"      % "2.6.14"
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.6.14"
     }
 
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
 
     object DataswiftModels {
-      private val version = "2.2.0"
+      private val version = "2.2.1_play2625"
       val hatPlay         = "io.dataswift" %% "hat-play" % version
       val dexPlay         = "io.dataswift" %% "dex-play" % version
     }

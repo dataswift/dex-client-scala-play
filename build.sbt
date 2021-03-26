@@ -4,7 +4,7 @@ configs(IntegrationTest)
 
 Defaults.itSettings
 
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.4.4"
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
 
 libraryDependencies ++= Seq(
   Library.Play.ws,
@@ -27,6 +27,6 @@ inThisBuild(
   List(
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
-    scalafixScalaBinaryVersion := "2.13"
+    scalafixScalaBinaryVersion := "2.12"
   )
 )
