@@ -13,15 +13,13 @@ import sbt._
 ////*******************************
 //// Basic settings
 ////*******************************
-object BasicSettings extends AutoPlugin {
+object BuildSettings extends AutoPlugin {
   override def trigger = allRequirements
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       organization := "org.hatdex",
       resolvers ++= Dependencies.resolvers,
-      scalaVersion := Dependencies.Versions.scalaVersion,
-      crossScalaVersions := Dependencies.Versions.crossScala,
       name := "DEX Client Scala",
       description := "Dataswift Exchange HTTP API wrapper for Scala",
       licenses += ("Mozilla Public License 2.0", url("https://www.mozilla.org/en-US/MPL/2.0")),
