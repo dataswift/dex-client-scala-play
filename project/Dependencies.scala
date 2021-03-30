@@ -11,32 +11,28 @@ import sbt._
 
 object Dependencies {
 
-  object Versions {
-    val crossScala   = Seq("2.13.3", "2.12.12")
-    val scalaVersion = crossScala.head
-    val testCommon   = "0.2.3"
+  object Version {
+    val TestCommon = "0.2.3"
+    val PlayJson   = "2.9.1"
+    val DsBackend  = "2.2.1"
   }
 
   val resolvers = Seq(
-    "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com"
   )
 
   object Library {
     object Play {
-      val version  = play.core.PlayVersion.current
-      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.2"
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.2"
+      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % play.core.PlayVersion.current
+      val json     = "com.typesafe.play" %% "play-json"      % Version.PlayJson
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % Version.PlayJson
     }
 
-    val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
+    val testCommon = "io.dataswift" %% "test-common" % Version.TestCommon
 
     object DataswiftModels {
-      private val version =
-        "2.0.4"
-      val hatPlay = "io.dataswift" %% "hat-play" % version
-      val dexPlay = "io.dataswift" %% "dex-play" % version
+      val hatPlay = "io.dataswift" %% "hat-play" % Version.DsBackend
+      val dexPlay = "io.dataswift" %% "dex-play" % Version.DsBackend
     }
 
   }
