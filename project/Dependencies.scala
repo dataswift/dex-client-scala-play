@@ -11,10 +11,10 @@ import sbt._
 
 object Dependencies {
 
-  object Versions {
-    val crossScala   = Seq("2.13.5", "2.12.13")
-    val scalaVersion = crossScala.head
-    val testCommon   = "0.2.3"
+  object Version {
+    val TestCommon = "0.2.3"
+    val PlayJson   = "2.9.1"
+    val DsBackend  = "2.2.1"
   }
 
   val resolvers = Seq(
@@ -23,18 +23,16 @@ object Dependencies {
 
   object Library {
     object Play {
-      val version  = play.core.PlayVersion.current
-      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % version
-      val json     = "com.typesafe.play" %% "play-json"      % "2.9.1"
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % play.core.PlayVersion.current
+      val json     = "com.typesafe.play" %% "play-json"      % Version.PlayJson
+      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % Version.PlayJson
     }
 
-    val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
+    val testCommon = "io.dataswift" %% "test-common" % Version.TestCommon
 
     object DataswiftModels {
-      private val version = "2.2.0"
-      val hatPlay         = "io.dataswift" %% "hat-play" % version
-      val dexPlay         = "io.dataswift" %% "dex-play" % version
+      val hatPlay = "io.dataswift" %% "hat-play" % Version.DsBackend
+      val dexPlay = "io.dataswift" %% "dex-play" % Version.DsBackend
     }
 
   }
