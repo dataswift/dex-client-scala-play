@@ -13,7 +13,7 @@ object Dependencies {
 
   object Version {
     val TestCommon = "0.2.3"
-    val PlayJson   = "2.9.1"
+    val PlayJson   = "2.9.2"
     val DsBackend  = "2.3.0"
   }
 
