@@ -9,11 +9,11 @@
 
 package org.hatdex.dex.apiV3
 
-import javax.inject.Inject
-
 import org.hatdex.dex.api.{ DexDataPlugs, DexNotices }
 import play.api.Logger
 import play.api.libs.ws.WSClient
+
+import javax.inject.Inject
 
 class DexClient(
     val ws: WSClient,

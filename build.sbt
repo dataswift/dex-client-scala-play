@@ -1,11 +1,13 @@
 import Dependencies._
+import play.sbt.PlayImport
 
 inThisBuild(
   List(
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
     scalafixScalaBinaryVersion := "2.13",
-    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
+    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0",
+    scalacOptions += "-Ywarn-unused"
   )
 )
 
@@ -16,12 +18,10 @@ configs(IntegrationTest)
 Defaults.itSettings
 
 libraryDependencies ++= Seq(
-  Library.Play.ws,
-  Library.Play.json,
-  Library.Play.jsonJoda,
-  Library.testCommon % Test,
-  Library.DataswiftModels.hatPlay,
-  Library.DataswiftModels.dexPlay
+  PlayImport.ws,
+  Library.HatPlay,
+  Library.DexPlay,
+  Library.TestCommon % Test
 )
 
 publishMavenStyle := true

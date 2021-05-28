@@ -12,9 +12,7 @@ import sbt._
 object Dependencies {
 
   object Version {
-    val TestCommon = "0.2.3"
-    val PlayJson   = "2.9.1"
-    val DsBackend  = "2.3.0"
+    val DsBackend = "2.4.0"
   }
 
   val resolvers = Seq(
@@ -22,18 +20,8 @@ object Dependencies {
   )
 
   object Library {
-    object Play {
-      val ws       = "com.typesafe.play" %% "play-ahc-ws"    % play.core.PlayVersion.current
-      val json     = "com.typesafe.play" %% "play-json"      % Version.PlayJson
-      val jsonJoda = "com.typesafe.play" %% "play-json-joda" % Version.PlayJson
-    }
-
-    val testCommon = "io.dataswift" %% "test-common" % Version.TestCommon
-
-    object DataswiftModels {
-      val hatPlay = "io.dataswift" %% "hat-play" % Version.DsBackend
-      val dexPlay = "io.dataswift" %% "dex-play" % Version.DsBackend
-    }
-
+    val TestCommon = "io.dataswift" %% "test-common" % Version.DsBackend
+    val HatPlay    = "io.dataswift" %% "hat-play"    % Version.DsBackend
+    val DexPlay    = "io.dataswift" %% "dex-play"    % Version.DsBackend
   }
 }

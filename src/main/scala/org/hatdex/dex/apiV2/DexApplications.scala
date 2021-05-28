@@ -1,7 +1,5 @@
 package org.hatdex.dex.apiV2
 
-import scala.concurrent.{ ExecutionContext, Future }
-
 import akka.Done
 import io.dataswift.models.hat.applications.{ Application, ApplicationDeveloper, ApplicationHistory }
 import org.hatdex.dex.apiV2.Errors._
@@ -9,6 +7,8 @@ import play.api.Logger
 import play.api.http.Status.{ CREATED, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED }
 import play.api.libs.json.{ Format, JsError, JsSuccess, Json }
 import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
+
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait DexApplications {
 
