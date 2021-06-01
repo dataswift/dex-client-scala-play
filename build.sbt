@@ -6,12 +6,9 @@ inThisBuild(
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
     scalafixScalaBinaryVersion := "2.13",
-    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0",
-    scalacOptions += "-Ywarn-unused"
+    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
   )
 )
-
-scalaVersion := "2.13.5"
 
 configs(IntegrationTest)
 
