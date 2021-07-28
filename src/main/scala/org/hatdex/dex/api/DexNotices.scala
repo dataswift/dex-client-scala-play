@@ -12,7 +12,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait DexNotices {
   val logger: Logger
   val ws: WSClient
-  val schema: String
   val dexAddress: String
 
   import DexJsonFormats._
@@ -24,7 +23,7 @@ trait DexNotices {
     logger.debug(s"Post notice $notice to MarketSquare")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/notices")
+      .url(s"$dexAddress/api/notices")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

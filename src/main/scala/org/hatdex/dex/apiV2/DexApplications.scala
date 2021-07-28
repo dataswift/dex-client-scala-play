@@ -14,7 +14,6 @@ trait DexApplications {
 
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val dexAddress: String
   protected val apiVersion: String
 
@@ -27,7 +26,7 @@ trait DexApplications {
 
   def applications(includeUnpublished: Boolean = false)(implicit ec: ExecutionContext): Future[Seq[Application]] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications")
+      .url(s"$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
       .withHttpHeaders("Accept" -> "application/json")
@@ -58,7 +57,7 @@ trait DexApplications {
     )(implicit ec: ExecutionContext): Future[Application] = {
     val requestedLanguage = lang.getOrElse("en")
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/$applicationId")
+      .url(s"$dexAddress/api/$apiVersion/applications/$applicationId")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters("lang" -> requestedLanguage)
       .withHttpHeaders("Accept" -> "application/json")
@@ -91,7 +90,7 @@ trait DexApplications {
       includeUnpublished: Boolean = false
     )(implicit ec: ExecutionContext): Future[Seq[ApplicationHistory]] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications-history")
+      .url(s"$dexAddress/api/$apiVersion/applications-history")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters("unpublished" -> includeUnpublished.toString)
       .withHttpHeaders("Accept" -> "application/json")
@@ -123,7 +122,7 @@ trait DexApplications {
     logger.debug(s"Register new app with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications")
+      .url(s"$dexAddress/api/$apiVersion/applications")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -161,7 +160,7 @@ trait DexApplications {
     logger.debug(s"Editing app with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}")
+      .url(s"$dexAddress/api/$apiVersion/applications/${application.id}")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -199,7 +198,7 @@ trait DexApplications {
     logger.debug(s"Publishing app with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/publish")
+      .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/publish")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -230,7 +229,7 @@ trait DexApplications {
     logger.debug(s"Suspending app with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/suspend")
+      .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/suspend")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -258,7 +257,7 @@ trait DexApplications {
     logger.debug(s"Fetching application $applicationId with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/$applicationId")
+      .url(s"$dexAddress/api/$apiVersion/applications/$applicationId")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -296,7 +295,7 @@ trait DexApplications {
     logger.debug(s"Updating developer with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/developer")
+      .url(s"$dexAddress/api/$apiVersion/applications/developer")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -334,7 +333,7 @@ trait DexApplications {
     logger.debug(s"Creating new app version with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/applications/${application.id}/versions")
+      .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/versions")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

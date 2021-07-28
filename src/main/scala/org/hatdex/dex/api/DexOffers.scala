@@ -11,7 +11,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait DexOffers {
   val logger: Logger
   val ws: WSClient
-  val schema: String
   val dexAddress: String
 
   import io.dataswift.models.dex.json.DexJsonFormats._
@@ -26,7 +25,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/offer/$offerId/claims")
+      .url(s"$dexAddress/api/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

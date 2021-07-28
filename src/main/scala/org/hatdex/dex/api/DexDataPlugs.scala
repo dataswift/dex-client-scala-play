@@ -10,7 +10,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait DexDataPlugs {
   val logger: Logger
   val ws: WSClient
-  val schema: String
   val dexAddress: String
 
   def dataplugConnectHat(
@@ -21,7 +20,7 @@ trait DexDataPlugs {
     logger.debug(s"Connect dataplug $dataplugId to $hatAddress via MarketSquare")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/dataplugs/$dataplugId/connect")
+      .url(s"$dexAddress/api/dataplugs/$dataplugId/connect")
       .withVirtualHost(dexAddress)
       .withQueryStringParameters(("hat", hatAddress))
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
