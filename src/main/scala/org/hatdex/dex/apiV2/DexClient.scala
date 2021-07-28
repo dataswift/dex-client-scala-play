@@ -17,9 +17,7 @@ import javax.inject.Inject
 
 class DexClient(
     val ws: WSClient,
-    val dexAddress: String,
-    override val schema: String,
-    override val apiVersion: String)
+    val dexAddress: String)
     extends DexOffers
     with DexNotices
     with DexDataPlugs
@@ -27,9 +25,6 @@ class DexClient(
     with DexUsers
     with DexApplications {
 
-  @Inject def this(
-      ws: WSClient,
-      dexAddress: String) = this(ws, dexAddress, "https://", "v1.1")
-
+  override val apiVersion: String = "v2"
   val logger: Logger = play.api.Logger(this.getClass)
 }

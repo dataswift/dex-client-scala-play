@@ -15,7 +15,6 @@ trait DexStats {
 
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val dexAddress: String
   protected val apiVersion: String
 
@@ -28,7 +27,7 @@ trait DexStats {
       stats: Seq[DataStats]
     )(implicit ec: ExecutionContext): Future[Unit] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/stats/report")
+      .url(s"$dexAddress/stats/report")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -46,7 +45,7 @@ trait DexStats {
 
   def availableData()(implicit ec: ExecutionContext): Future[Seq[NamespaceStructure]] = {
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/stats/available-data")
+      .url(s"$dexAddress/stats/available-data")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json")
 

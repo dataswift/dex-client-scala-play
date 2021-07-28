@@ -12,7 +12,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait DexOffers {
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val dexAddress: String
   protected val apiVersion: String
 
@@ -22,7 +21,7 @@ trait DexOffers {
     logger.debug(s"Get DEX data offers from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/offers")
+      .url(s"$dexAddress/api/$apiVersion/offers")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -53,7 +52,7 @@ trait DexOffers {
     logger.debug(s"Register new offer with $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/offer")
+      .url(s"$dexAddress/api/$apiVersion/offer")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -91,7 +90,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId/claims")
+      .url(s"$dexAddress/api/$apiVersion/offer/$offerId/claims")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -131,7 +130,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId/registerClaim")
+      .url(s"$dexAddress/api/$apiVersion/offer/$offerId/registerClaim")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("hat", hat))
@@ -183,7 +182,7 @@ trait DexOffers {
     logger.debug(s"Get Data Debit $offerId values from $dexAddress")
 
     val request: WSRequest = ws
-      .url(s"$schema$dexAddress/api/$apiVersion/offer/$offerId")
+      .url(s"$dexAddress/api/$apiVersion/offer/$offerId")
       .withVirtualHost(dexAddress)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("status", status))

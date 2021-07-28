@@ -12,21 +12,21 @@ class DexApplicationsItTest extends AsyncFunSuite with Matchers with ScalaCheckD
   implicit val ec = scala.concurrent.ExecutionContext.global
   test("Get All Applications") {
     play.api.test.WsTestClient.withClient { ws =>
-      val client = new DexClient(ws, "localhost:9000", "http://")
+      val client = new DexClient(ws, "http://localhost:9000")
       client.applications() map { _ mustBe a [Seq[_]] }
     }
   }
 
   test("Get All Applications with filters and pagination") {
     play.api.test.WsTestClient.withClient { ws =>
-      val client = new DexClient(ws, "localhost:9000", "http://")
+      val client = new DexClient(ws, "http://localhost:9000")
       client.applications(unpublished = Some(true), kind = Some(ApplicationKind.DataPlug("Blah")), startId = None, limit = Some(5)) map { _ mustBe a [Seq[_]] }
     }
   }
 
   test("Get Application By Id") {
     play.api.test.WsTestClient.withClient { ws =>
-      val client = new DexClient(ws, "localhost:9000", "http://")
+      val client = new DexClient(ws, "http://localhost:9000")
       recoverToSucceededIf[DetailsNotFoundException] {
         client.application("Some Id") map { _ mustBe a [Seq[_]] }
       }

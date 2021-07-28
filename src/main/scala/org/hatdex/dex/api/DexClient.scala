@@ -16,16 +16,11 @@ import javax.inject.Inject
 
 class DexClient(
     val ws: WSClient,
-    val dexAddress: String,
-    override val schema: String)
+    val dexAddress: String)
     extends DexOffers
     with DexNotices
     with DexDataPlugs
     with DexStats {
-
-  @Inject def this(
-      ws: WSClient,
-      dexAddress: String) = this(ws, dexAddress, "https://")
 
   val logger: Logger = play.api.Logger(this.getClass)
 }
