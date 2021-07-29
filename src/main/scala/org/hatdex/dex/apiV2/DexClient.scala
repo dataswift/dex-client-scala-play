@@ -9,11 +9,11 @@
 
 package org.hatdex.dex.apiV2
 
-import org.hatdex.dex.api.{ DexDataPlugs, DexNotices }
+import org.hatdex.dex.api.{DexDataPlugs, DexNotices}
 import play.api.Logger
 import play.api.libs.ws.WSClient
 
-import javax.inject.Inject
+import java.net.URL
 
 class DexClient(
     val ws: WSClient,
@@ -26,5 +26,6 @@ class DexClient(
     with DexApplications {
 
   override val apiVersion: String = "v2"
+  override val dexHost: String = new URL(dexAddress).getHost
   val logger: Logger = play.api.Logger(this.getClass)
 }
