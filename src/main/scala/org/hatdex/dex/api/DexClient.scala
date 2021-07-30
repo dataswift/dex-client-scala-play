@@ -12,7 +12,7 @@ package org.hatdex.dex.api
 import play.api.Logger
 import play.api.libs.ws.WSClient
 
-import javax.inject.Inject
+import java.net.URL
 
 class DexClient(
     val ws: WSClient,
@@ -22,5 +22,6 @@ class DexClient(
     with DexDataPlugs
     with DexStats {
 
-  val logger: Logger = play.api.Logger(this.getClass)
+  override val dexHost: String = new URL(dexAddress).getHost
+  val logger: Logger           = play.api.Logger(this.getClass)
 }

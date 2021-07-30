@@ -13,6 +13,7 @@ trait DexOffers {
   protected val logger: Logger
   protected val ws: WSClient
   protected val dexAddress: String
+  protected val dexHost: String
   protected val apiVersion: String
 
   import io.dataswift.models.dex.json.DexJsonFormats._
@@ -22,7 +23,7 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/v2/offers")
-      .withVirtualHost(dexAddress)
+      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -53,7 +54,7 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/v2/offer")
-      .withVirtualHost(dexAddress)
+      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(offer))
@@ -91,7 +92,7 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/v2/offer/$offerId/claims")
-      .withVirtualHost(dexAddress)
+      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -131,7 +132,7 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/v2/offer/$offerId/registerClaim")
-      .withVirtualHost(dexAddress)
+      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("hat", hat))
 
@@ -183,7 +184,7 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/v2/offer/$offerId")
-      .withVirtualHost(dexAddress)
+      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(("status", status))
 
