@@ -15,7 +15,6 @@ trait DexNotices {
   val dexAddress: String
   val dexHost: String
 
-
   import DexJsonFormats._
 
   def postNotice(

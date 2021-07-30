@@ -23,5 +23,5 @@ class DexClient(
     with DexStats {
 
   override val dexHost: String = new URL(dexAddress).getHost
-  val logger: Logger = play.api.Logger(this.getClass)
+  val logger: Logger           = play.api.Logger(this.getClass)
 }

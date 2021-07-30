@@ -26,6 +26,6 @@ class DexClient(
     with DexApplications {
 
   override val apiVersion: String = "v3"
-  override val dexHost: String = new URL(dexAddress).getHost
-  val logger: Logger = play.api.Logger(this.getClass)
+  override val dexHost: String    = new URL(dexAddress).getHost
+  val logger: Logger              = play.api.Logger(this.getClass)
 }
