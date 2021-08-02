@@ -12,7 +12,6 @@ trait DexOffers {
   val logger: Logger
   val ws: WSClient
   val dexAddress: String
-  val dexHost: String
 
   import io.dataswift.models.dex.json.DexJsonFormats._
 
@@ -27,7 +26,6 @@ trait DexOffers {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/offer/$offerId/claims")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()

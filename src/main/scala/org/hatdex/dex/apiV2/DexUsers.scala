@@ -14,7 +14,6 @@ trait DexUsers {
   protected val logger: Logger
   protected val ws: WSClient
   protected val dexAddress: String
-  protected val dexHost: String
   protected val apiVersion: String
 
   def registerHat(
@@ -43,7 +42,6 @@ trait DexUsers {
     )(implicit ec: ExecutionContext): Future[Done] = {
     val request: WSRequest = ws
       .url(s"$dexAddress/api/users/register-consent/$applicationId")
-      .withVirtualHost(dexHost)
       .withRequestTimeout(2500.millis)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 

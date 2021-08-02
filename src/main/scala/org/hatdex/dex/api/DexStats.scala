@@ -15,7 +15,6 @@ trait DexStats {
   val logger: Logger
   val ws: WSClient
   val dexAddress: String
-  val dexHost: String
 
   def postStats(
       access_token: String,
@@ -23,7 +22,6 @@ trait DexStats {
     )(implicit ec: ExecutionContext): Future[Unit] = {
     val request: WSRequest = ws
       .url(s"$dexAddress/stats/report")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(stats))

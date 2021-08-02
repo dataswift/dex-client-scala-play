@@ -11,7 +11,6 @@ trait DexDataPlugs {
   val logger: Logger
   val ws: WSClient
   val dexAddress: String
-  val dexHost: String
 
   def dataplugConnectHat(
       access_token: String,
@@ -22,7 +21,6 @@ trait DexDataPlugs {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/dataplugs/$dataplugId/connect")
-      .withVirtualHost(dexHost)
       .withQueryStringParameters(("hat", hatAddress))
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

@@ -29,7 +29,6 @@ trait DexApplications {
   protected val logger: Logger
   protected val ws: WSClient
   protected val dexAddress: String
-  protected val dexHost: String
   protected val apiVersion: String
 
   private def optionalParam[T](
@@ -58,7 +57,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications")
-      .withVirtualHost(dexHost)
       .withQueryStringParameters(queryParams(unpublished, kind, startId, limit): _*)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -89,7 +87,6 @@ trait DexApplications {
     val requestedLanguage = lang.getOrElse("en")
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/$applicationId")
-      .withVirtualHost(dexHost)
       .withQueryStringParameters("lang" -> requestedLanguage)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -126,7 +123,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications-history")
-      .withVirtualHost(dexHost)
       .withQueryStringParameters(queryParams(unpublished, kind, startId, limit): _*)
       .withHttpHeaders("Accept" -> "application/json")
 
@@ -158,7 +154,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
@@ -196,7 +191,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/${application.id}")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.put(Json.toJson(application))
@@ -234,7 +228,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/publish")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -265,7 +258,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/suspend")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -293,7 +285,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/$applicationId")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json")
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -331,7 +322,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/developer")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.put(Json.toJson(developer))
@@ -369,7 +359,6 @@ trait DexApplications {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/$apiVersion/applications/${application.id}/versions")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
