@@ -13,7 +13,6 @@ trait DexNotices {
   val logger: Logger
   val ws: WSClient
   val dexAddress: String
-  val dexHost: String
 
   import DexJsonFormats._
 
@@ -25,7 +24,6 @@ trait DexNotices {
 
     val request: WSRequest = ws
       .url(s"$dexAddress/api/notices")
-      .withVirtualHost(dexHost)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(notice))
