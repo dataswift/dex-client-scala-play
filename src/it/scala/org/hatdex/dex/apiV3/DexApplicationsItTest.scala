@@ -4,10 +4,9 @@ import org.hatdex.dex.apiV2.Errors.DetailsNotFoundException
 import io.dataswift.models.hat.applications.ApplicationKind
 import org.scalatest.funsuite.AsyncFunSuite
 import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 //Requires a locally running Dex
-class DexApplicationsItTest extends AsyncFunSuite with Matchers with ScalaCheckDrivenPropertyChecks {
+class DexApplicationsItTest extends AsyncFunSuite with Matchers {
 
   implicit val ec = scala.concurrent.ExecutionContext.global
   test("Get All Applications") {
